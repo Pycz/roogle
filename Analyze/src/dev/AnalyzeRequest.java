@@ -73,7 +73,7 @@ public class AnalyzeRequest {
 	 * @param request - extractable string
 	 * @param posChar - extract from 0 to posChar
 	 * @param global - flag
-	 * @return
+	 * @return tail of request after extracting parameter
 	 */
 	private static String extract (String request, char posChar, int global) {
 		
@@ -103,19 +103,6 @@ public class AnalyzeRequest {
 		}
 		temp = request.substring(pos);
 		return temp;
-	}
-	
-	/**
-	 * 
-	 * @param str
-	 * @param pos current position on a string
-	 * @return position of last whitespace
-	 */
-	private static int skipWhitespace (String str, int pos) {
-		while ( pos < str.length() && String.valueOf(str.charAt(pos)).matches("[ \t]") ) {
-			pos++;
-		}
-		return pos;
 	}
 	
 	/**
@@ -168,7 +155,8 @@ public class AnalyzeRequest {
 				System.out.println("output");
 				
 				pos = request.indexOf(">") + 1; 
-				pos = skipWhitespace(request, pos);
+				request = request.substring(pos);
+				request = removeWhitespace(request);
 				while ( pos < request.length() && String.valueOf(request.charAt(pos)).matches("[a-z]") ) {
 					pos++;
 				}
@@ -184,9 +172,9 @@ public class AnalyzeRequest {
 		}
 		
 		System.out.println("");
-		System.out.println("name = " + name);
-		System.out.println("generic = " + generic);
-		System.out.println("signature = " + signature);
-		System.out.println("output = " + output);
+		System.out.println("name: " + name);
+		System.out.println("generic: " + generic);
+		System.out.println("signature: " + signature);
+		System.out.println("output: " + output);
 	}
 }
