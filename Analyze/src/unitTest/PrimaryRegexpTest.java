@@ -20,6 +20,12 @@ public class PrimaryRegexpTest {
 		res = PrimaryRegexp.type("map <> ()");
 		assertEquals(PrimaryRegexp.type.NAME, res);
 		
+		res = PrimaryRegexp.type("to_json");
+		assertEquals(PrimaryRegexp.type.NAME, res);
+		
+		res = PrimaryRegexp.type("to_json1");
+		assertEquals(PrimaryRegexp.type.NAME, res);
+		
 		res = PrimaryRegexp.type("ma:p a");
 		assertEquals(PrimaryRegexp.type.PARSE_ERROR, res); 
 		/*

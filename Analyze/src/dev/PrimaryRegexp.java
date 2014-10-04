@@ -2,7 +2,7 @@ package dev;
 
 public class PrimaryRegexp {
 	
-	private static String nameRegex = "[ \t]*[a-z]+.*";
+	private static String nameRegex = "[ \t]*[a-z_0-9]+.*";
 	private static String genericRegex = "[ \t]*<.*>.*"; 
 	private static String signatureRegex = "[ \t]*[(].*[)].*";
 	private static String outputRegex = "[ \t]*-[ \t]*>[ \t]*[a-z]+.*";
