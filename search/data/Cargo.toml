@@ -1,0 +1,5 @@
+[package]
+
+name = "roogle-data"
+version = "0.0.1"
+authors = ["Marsel Zaripov <marszaripov@gmail.com>"]
