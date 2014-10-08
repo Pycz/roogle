@@ -148,23 +148,33 @@ public class AnalyzeRequest {
 			if ( type == dev.PrimaryRegexp.type.NAME ) {
 				System.out.println("name");	
 				request = removeWhitespace(request);
-				request = extract(request, ' ', 0);
-				if (request == null) break;
-				System.out.println("request string = " + request);
+				pos = 0;
+				while ( pos < request.length() && String.valueOf(request.charAt(pos)).matches(PrimaryRegexp.nameRegex) ) {
+					pos++;
+				}
+				request = extract(request, pos, 0);
+				if (request == null) {
+					return JSONManager.error();
+				}
+				System.out.println("request string: " + request);
 			}
 			
 			if ( type == dev.PrimaryRegexp.type.GENERIC ) {
 				System.out.println("generic");
 				request = extract(request, '>', 1);
-				if (request == null) break;
-				System.out.println("request string = " + request);
+				if (request == null) {
+					return JSONManager.error();
+				}
+				System.out.println("request string: " + request);
 			}
 			
 			if ( type == dev.PrimaryRegexp.type.SIGNATURE ) {
 				System.out.println("signature");
 				request = extract(request, ')', 2);
-				if (request == null) break;
-				System.out.println("request string = " + request);
+				if (request == null) {
+					return JSONManager.error();
+				}
+				System.out.println("request string: " + request);
 			}
 			
 			if ( type == dev.PrimaryRegexp.type.OUTPUT ) {
@@ -177,14 +187,15 @@ public class AnalyzeRequest {
 					pos++;
 				}
 				request = extract(request, pos, 3);
-				if (request == null) break;
-				System.out.println("request string = " + request);
+				if (request == null) {
+					return JSONManager.error();
+				}
+				System.out.println("request string: " + request);
 			}
 			
 			if ( type == dev.PrimaryRegexp.type.PARSE_ERROR ) {
-				System.out.println("ERROR");
-				json = JSONManager.error();
-				break;
+				System.out.println("parse error");
+				return json = JSONManager.error();
 			}
 		}
 		

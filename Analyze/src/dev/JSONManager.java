@@ -26,8 +26,12 @@ public class JSONManager {
 		
 		JSONObject requestJson = new JSONObject();
 		
-		requestJson.put("name", AnalyzeRequest.name());
-		requestJson.put("output", AnalyzeRequest.output());
+		if (!AnalyzeRequest.name().equals("")) {
+			requestJson.put("name", AnalyzeRequest.name());
+		}
+		if (!AnalyzeRequest.output().equals("")) {	
+			requestJson.put("output", AnalyzeRequest.output());
+		}
 		
 		return requestJson;
 	}
