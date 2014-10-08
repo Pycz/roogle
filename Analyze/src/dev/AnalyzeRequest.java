@@ -136,13 +136,11 @@ public class AnalyzeRequest {
 		return output;
 	}
 	
-	public static void main (String [] args) {
-		
-		String request = mRequest;
+	public static JSONObject analyze(String request) {
 		int pos;
 		PrimaryRegexp.type type;
+		JSONObject json;
 		
-		System.out.println("request: " + request);
 		while ( !request.matches("[ \t]*")) {
 			
 			type = PrimaryRegexp.type(request);
@@ -185,24 +183,40 @@ public class AnalyzeRequest {
 			
 			if ( type == dev.PrimaryRegexp.type.PARSE_ERROR ) {
 				System.out.println("ERROR");
+				json = JSONManager.error();
 				break;
 			}
 		}
+		
+		json = JSONManager.request();
+		return json;
+	}
+	
+	public static void main (String [] args) {
+		
+		String request = mRequest;		
+		System.out.println("request: " + request);		
+		
+		JSONObject obj = analyze(request);
+		
+		System.out.println("");
+		System.out.println("formed json:");
+		System.out.println(obj);
 		
 		System.out.println("");
 		System.out.println("name: " + name);
 		System.out.println("generic: " + generic);
 		System.out.println("signature: " + signature);
 		System.out.println("output: " + output);
-		
-		System.out.println("");
-		JSONObject errorJsonObject = JSONManager.error();
-		System.out.println("Test error json output");
-		System.out.println(errorJsonObject);
-		
-		System.out.println("");
-		JSONObject requestJsonObject = JSONManager.request();
-		System.out.println("Test request json output");
-		System.out.println(requestJsonObject);		
+//		
+//		System.out.println("");
+//		JSONObject errorJsonObject = JSONManager.error();
+//		System.out.println("Test error json output");
+//		System.out.println(errorJsonObject);
+//		
+//		System.out.println("");
+//		JSONObject requestJsonObject = JSONManager.request();
+//		System.out.println("Test request json output");
+//		System.out.println(requestJsonObject);		
 	}
 }
