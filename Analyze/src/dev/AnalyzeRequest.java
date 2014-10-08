@@ -118,6 +118,22 @@ public class AnalyzeRequest {
 		return str.substring(pos);
 	}
 	
+	/**
+	 * 
+	 * @return function name
+	 */
+	public static String name() {
+		return name;
+	}
+	
+	/**
+	 * 
+	 * @return output type
+	 */
+	public static String output() {
+		return output;
+	}
+	
 	public static void main (String [] args) {
 		
 		String request = mRequest;

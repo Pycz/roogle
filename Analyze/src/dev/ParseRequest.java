@@ -8,6 +8,11 @@ import org.json.simple.parser.ParseException;
 
 public class ParseRequest {
 
+	/**
+	 * convert string from UTF-8 to Unicode
+	 * @param utfString
+	 * @return unicode string
+	 */
 	public static String convertUTF8toUnicode(byte[] utfString) {
 		
 		try {
