@@ -1,5 +1,7 @@
 package dev;
 
+import org.json.simple.JSONObject;
+
 public class AnalyzeRequest {
 
 	private static String mRequest = "map (a: Type1, b: Type2)<Generic: gen1, gen2> -> type";
@@ -192,5 +194,15 @@ public class AnalyzeRequest {
 		System.out.println("generic: " + generic);
 		System.out.println("signature: " + signature);
 		System.out.println("output: " + output);
+		
+		System.out.println("");
+		JSONObject errorJsonObject = JSONManager.error();
+		System.out.println("Test error json output");
+		System.out.println(errorJsonObject);
+		
+		System.out.println("");
+		JSONObject requestJsonObject = JSONManager.request();
+		System.out.println("Test request json output");
+		System.out.println(requestJsonObject);		
 	}
 }
