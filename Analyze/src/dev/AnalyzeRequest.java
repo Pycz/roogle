@@ -1,12 +1,15 @@
 package dev;
 
+import java.util.LinkedList;
+
 import org.json.simple.JSONObject;
 
 public class AnalyzeRequest {
 
-	private static String mRequest = "map (a: Type1, b: Type2)<Generic: gen1, gen2> -> type";
+	private static String mRequest = "map (a: Type1, b: Type2) <T: G1 + G2> -> type";
 	private static String name = "";
-	private static String generic = "";
+	//private static String generic = "";
+	public static LinkedList<LinkedList> genericList = new LinkedList<LinkedList>();
 	private static String signature = "";
 	private static String output = "";
 	
@@ -33,9 +36,14 @@ public class AnalyzeRequest {
 			}
 		case 1:
 		{
-			if ( generic.equals("")) {
-				generic = request.substring(0, pos);
-				return true;
+			if ( genericList.isEmpty() ) {
+				genericList = AnalyzeGeneric.parseGeneric(request.substring(0, pos));
+				if ( genericList != null ) {
+					return true;
+				} 
+				else {
+					return false;
+				}
 			}
 			else {
 				System.out.println("ERROR, duplicate generic");
@@ -216,7 +224,7 @@ public class AnalyzeRequest {
 		
 		System.out.println("");
 		System.out.println("name: " + name);
-		System.out.println("generic: " + generic);
+		System.out.println("generic: " + genericList);
 		System.out.println("signature: " + signature);
 		System.out.println("output: " + output);
 //		
