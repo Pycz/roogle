@@ -36,6 +36,7 @@ pub struct RClosureDecl(pub clean::ClosureDecl);
 pub struct RBareFunctionDecl(pub clean::BareFunctionDecl);
 pub struct RMutability(pub clean::Mutability);
 pub struct RBorrowedRef(pub clean::Type);
+pub struct RUnboxedFnType(pub clean::UnboxedFnType);
 
 
 impl ToJson for RItem {
@@ -120,6 +121,11 @@ impl ToJson for RItemEnum {
                            String(from_str("module").unwrap()));
                 obj.insert(from_str("value").unwrap(),
                            RModule(m.clone()).to_json());
+                Object(obj)
+            }
+            clean::ConstantItem(ref c) => {
+                obj.insert("type_".to_string(), RType(c.type_.clone()).to_json());
+                obj.insert("expr".to_string(), String(c.expr.clone()));
                 Object(obj)
             }
             clean::StaticItem(ref st) => {
@@ -526,14 +532,19 @@ impl ToJson for RTyParamBound {
     fn to_json(&self) -> Json {
         let RTyParamBound(ref typb) = *self;
         match *typb {
-            clean::RegionBound => String(from_str("RegionBound").unwrap()),
+            clean::RegionBound(ref l) => {
+                String(format!("{}", l))
+            },
             clean::TraitBound(ref ty) => {
                 RType(ty.clone()).to_json()
+            },
+            clean::UnboxedFnBound(ref uft) => {
+                RUnboxedFnType(uft.clone()).to_json()
             }
         }
-
     }
 }
+
 
 impl ToJson for RStructType {
     fn to_json(&self) -> Json {
@@ -606,6 +617,17 @@ impl ToJson for RMutability {
             clean::Mutable => String(from_str("Mutable").unwrap()),
             clean::Immutable => String(from_str("Immutable").unwrap()),
         }
+    }
+}
+
+
+impl ToJson for RUnboxedFnType {
+    fn to_json(&self) -> Json {
+        let RUnboxedFnType(ref u) = *self;
+        let mut obj = TreeMap::new();
+        obj.insert("path".to_string(), RPath(u.path.clone()).to_json());
+        obj.insert("decl".to_string(), RFnDecl(u.decl.clone()).to_json());
+        Object(obj)
     }
 }
 
