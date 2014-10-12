@@ -10,7 +10,8 @@ public class AnalyzeRequest {
 	private static String name = "";
 	//private static String generic = "";
 	public static LinkedList<LinkedList> genericList = new LinkedList<LinkedList>();
-	private static String signature = "";
+	public static LinkedList lifetimesList = new LinkedList();
+	public static LinkedList signature = new LinkedList();
 	private static String output = "";
 	
 	/**
@@ -38,6 +39,9 @@ public class AnalyzeRequest {
 		{
 			if ( genericList.isEmpty() ) {
 				genericList = AnalyzeGeneric.parseGeneric(request.substring(0, pos));
+				lifetimesList = genericList.getFirst();
+				genericList = genericList.getLast();
+				
 				if ( genericList != null ) {
 					return true;
 				} 
@@ -53,7 +57,7 @@ public class AnalyzeRequest {
 		case 2:
 		{
 			if ( signature.equals("")) {
-				signature = request.substring(0, pos);
+				signature = AnalyzeSignature.parseSignature(request.substring(0, pos));
 				return true;
 			}
 			else {
