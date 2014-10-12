@@ -6,12 +6,11 @@ import org.json.simple.JSONObject;
 
 public class AnalyzeRequest {
 
-	private static String mRequest = "map (a: Type1, b: Type2) <T: G1 + G2> -> type";
+	private static String mRequest = "map (a: Type1, b: Type2) <'a, T: G1 + G2> -> type";
 	private static String name = "";
-	//private static String generic = "";
 	public static LinkedList<LinkedList> genericList = new LinkedList<LinkedList>();
 	public static LinkedList lifetimesList = new LinkedList();
-	public static LinkedList signature = new LinkedList();
+	public static LinkedList signatureList = new LinkedList();
 	private static String output = "";
 	
 	/**
@@ -39,15 +38,14 @@ public class AnalyzeRequest {
 		{
 			if ( genericList.isEmpty() ) {
 				genericList = AnalyzeGeneric.parseGeneric(request.substring(0, pos));
+				
+				if (genericList == null)
+					return false;
+				
 				lifetimesList = genericList.getFirst();
 				genericList = genericList.getLast();
 				
-				if ( genericList != null ) {
-					return true;
-				} 
-				else {
-					return false;
-				}
+				return true;
 			}
 			else {
 				System.out.println("ERROR, duplicate generic");
@@ -56,8 +54,11 @@ public class AnalyzeRequest {
 		}
 		case 2:
 		{
-			if ( signature.equals("")) {
-				signature = AnalyzeSignature.parseSignature(request.substring(0, pos));
+			if ( signatureList.isEmpty() ) {
+				signatureList = AnalyzeSignature.parseSignature(request.substring(0, pos));
+				if (signatureList == null) {
+					return false;
+				}
 				return true;
 			}
 			else {
@@ -173,6 +174,7 @@ public class AnalyzeRequest {
 			
 			if ( type == dev.PrimaryRegexp.type.GENERIC ) {
 				System.out.println("generic");
+				request = removeWhitespace(request);
 				request = extract(request, '>', 1);
 				if (request == null) {
 					return JSONManager.error();
@@ -182,6 +184,7 @@ public class AnalyzeRequest {
 			
 			if ( type == dev.PrimaryRegexp.type.SIGNATURE ) {
 				System.out.println("signature");
+				request = removeWhitespace(request);
 				request = extract(request, ')', 2);
 				if (request == null) {
 					return JSONManager.error();
@@ -229,7 +232,7 @@ public class AnalyzeRequest {
 		System.out.println("");
 		System.out.println("name: " + name);
 		System.out.println("generic: " + genericList);
-		System.out.println("signature: " + signature);
+		System.out.println("signature: " + signatureList);
 		System.out.println("output: " + output);
 //		
 //		System.out.println("");
