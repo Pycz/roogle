@@ -159,7 +159,6 @@ public class AnalyzeRequest {
 			type = PrimaryRegexp.type(request);
 			
 			if ( type == dev.PrimaryRegexp.type.NAME ) {
-				System.out.println("name");	
 				request = removeWhitespace(request);
 				pos = 0;
 				while ( pos < request.length() && String.valueOf(request.charAt(pos)).matches(PrimaryRegexp.nameRegex) ) {
@@ -169,32 +168,25 @@ public class AnalyzeRequest {
 				if (request == null) {
 					return JSONManager.error();
 				}
-				System.out.println("request string: " + request);
 			}
 			
 			if ( type == dev.PrimaryRegexp.type.GENERIC ) {
-				System.out.println("generic");
 				request = removeWhitespace(request);
 				request = extract(request, '>', 1);
 				if (request == null) {
 					return JSONManager.error();
 				}
-				System.out.println("request string: " + request);
 			}
 			
 			if ( type == dev.PrimaryRegexp.type.SIGNATURE ) {
-				System.out.println("signature");
 				request = removeWhitespace(request);
 				request = extract(request, ')', 2);
 				if (request == null) {
 					return JSONManager.error();
 				}
-				System.out.println("request string: " + request);
 			}
 			
 			if ( type == dev.PrimaryRegexp.type.OUTPUT ) {
-				System.out.println("output");
-				
 				pos = request.indexOf(">") + 1; 
 				request = request.substring(pos);
 				request = removeWhitespace(request);
@@ -205,7 +197,6 @@ public class AnalyzeRequest {
 				if (request == null) {
 					return JSONManager.error();
 				}
-				System.out.println("request string: " + request);
 			}
 			
 			if ( type == dev.PrimaryRegexp.type.PARSE_ERROR ) {
@@ -232,17 +223,8 @@ public class AnalyzeRequest {
 		System.out.println("");
 		System.out.println("name: " + name);
 		System.out.println("generic: " + genericList);
+		System.out.println("lifetime: " + lifetimesList);
 		System.out.println("signature: " + signatureList);
-		System.out.println("output: " + output);
-//		
-//		System.out.println("");
-//		JSONObject errorJsonObject = JSONManager.error();
-//		System.out.println("Test error json output");
-//		System.out.println(errorJsonObject);
-//		
-//		System.out.println("");
-//		JSONObject requestJsonObject = JSONManager.request();
-//		System.out.println("Test request json output");
-//		System.out.println(requestJsonObject);		
+		System.out.println("output: " + output);		
 	}
 }
