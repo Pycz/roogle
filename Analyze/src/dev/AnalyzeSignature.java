@@ -4,7 +4,11 @@ import java.util.LinkedList;
 import java.util.regex.Pattern;
 
 public class AnalyzeSignature {
-	
+	/**
+	 * 
+	 * @param signature
+	 * @return LinkedList - [[var, Type], [var2, Type2], ...], null mean error 
+	 */
 	public static LinkedList parseSignature(String signature){
 		LinkedList signatureList = new LinkedList();
 		
