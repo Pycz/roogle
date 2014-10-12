@@ -122,11 +122,11 @@ public class AnalyzeGenericTest {
 	
 	@Test
 	public void lifeTime(){
-		String request = "<`a>";
+		String request = "<'a>";
 		LinkedList expectedGenericsList = new LinkedList();
 		LinkedList generic = new LinkedList();
 		LinkedList lifetime = new LinkedList();
-		lifetime.add("`a");
+		lifetime.add("'a'");
 		expectedGenericsList.add(lifetime);
 		expectedGenericsList.add(generic);
 		assertEquals(expectedGenericsList, AnalyzeGeneric.parseGeneric(request));
@@ -134,19 +134,19 @@ public class AnalyzeGenericTest {
 	
 	@Test
 	public void morelifeTime(){
-		String request = "<`a, `b>";
+		String request = "<'a, 'b>";
 		LinkedList expectedGenericsList = new LinkedList();
 		LinkedList generic = new LinkedList();
 		LinkedList lifetime = new LinkedList();
-		lifetime.add("`a");
-		lifetime.add("`b");
+		lifetime.add("'a'");
+		lifetime.add("'b'");
 		expectedGenericsList.add(lifetime);
 		expectedGenericsList.add(generic);
 		assertEquals(expectedGenericsList, AnalyzeGeneric.parseGeneric(request));
 	}
 	
 	public void twoTypeThreeAndLifetimeGeneric(){
-		String request = "<`a,Type1: G1 + G2+G3, Type2: G2+ G4+G5>";
+		String request = "<'a,Type1: G1 + G2+G3, Type2: G2+ G4+G5>";
 		LinkedList expectedGenericsList = new LinkedList();
 		LinkedList generic = new LinkedList();
 		LinkedList lifetime = new LinkedList();
@@ -166,14 +166,14 @@ public class AnalyzeGenericTest {
 		gen1.add("G5");
 		typeAndGen1.add(gen1);
 		generic.add(typeAndGen1);
-		lifetime.add("`a");
+		lifetime.add("'a'");
 		expectedGenericsList.add(lifetime);
 		expectedGenericsList.add(generic);
 		assertEquals(expectedGenericsList, AnalyzeGeneric.parseGeneric(request));
 	}
 	
 	public void twoTypeThreeAndFewLifetimeGeneric(){
-		String request = "<`a,`b, Type1: G1 + G2+G3, Type2: G2+ G4+G5>";
+		String request = "<'a,'b, Type1: G1 + G2+G3, Type2: G2+ G4+G5>";
 		LinkedList expectedGenericsList = new LinkedList();
 		LinkedList generic = new LinkedList();
 		LinkedList lifetime = new LinkedList();
@@ -193,8 +193,8 @@ public class AnalyzeGenericTest {
 		gen1.add("G5");
 		typeAndGen1.add(gen1);
 		generic.add(typeAndGen1);
-		lifetime.add("`a");
-		lifetime.add("`b");
+		lifetime.add("'a'");
+		lifetime.add("'b'");
 		expectedGenericsList.add(lifetime);
 		expectedGenericsList.add(generic);
 		assertEquals(expectedGenericsList, AnalyzeGeneric.parseGeneric(request));

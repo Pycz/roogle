@@ -56,10 +56,10 @@ public class AnalyzeGeneric {
 		catch(Exception e){
 			oneGeneric = oneGeneric.replaceAll(" ", "");
 			String first = oneGeneric.substring(0, 1);
-			if (!first.equals("`")){
+			if (!first.equals("'")){
 				throw new Exception();
 			}
-			lifetimes.add(oneGeneric);
+			lifetimes.add(oneGeneric+"'");
 			return null;
 		}
 		return typeAndGenerics;
