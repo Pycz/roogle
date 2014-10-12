@@ -1,6 +1,9 @@
 package dev;
 
 import java.util.LinkedList;
+import java.util.regex.Pattern;
+
+import org.hamcrest.Matcher;
 
 
 public class AnalyzeGeneric {
@@ -21,7 +24,6 @@ public class AnalyzeGeneric {
 					genericList.add(AnalyzeOneGenericRequest(s));
 				}
 				catch(Exception e){
-					System.out.println("exception");
 					return null;					
 				}
 			}
@@ -35,7 +37,10 @@ public class AnalyzeGeneric {
 		String[] oneGenericSplitByColon = oneGeneric.split(":");
 		String type = oneGenericSplitByColon[0];
 		type = type.replaceAll(" ", "");
-		if (!type.toUpperCase().equals(type)) { throw new Exception();}
+		Pattern p = Pattern.compile("[A-Z]");
+		String firstLetter = type.substring(0, 1);
+		java.util.regex.Matcher isLetter = p.matcher(firstLetter.toUpperCase());
+		if (!(firstLetter.toUpperCase()).equals(firstLetter) || (!isLetter.matches())) { throw new Exception();}
 		typeAndGenerics.add(type);
 		typeAndGenerics.add(AnalyzeGenericsInOneGenericRequest(oneGenericSplitByColon[1]));
 		return typeAndGenerics;
