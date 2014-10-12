@@ -122,7 +122,42 @@ impl ToJson for RItemEnum {
                            RModule(m.clone()).to_json());
                 Object(obj)
             }
-            _ => { Null }
+            clean::StaticItem(ref st) => {
+                println!("StaticItem");
+                Null
+            }
+            clean::ViewItemItem(ref v) => {
+                println!("ViewItemItem");
+                Null
+            }
+            clean::StructFieldItem(ref sf) => {
+                println!("StructFieldItem");
+                Null
+            }
+            clean::VariantItem(ref v) => {
+                println!("VariantItem");
+                Null
+            }
+            clean::ForeignFunctionItem(ref f) => {
+                println!("ForeignFunctionItem");
+                Null
+            }
+            clean::ForeignStaticItem(ref st) => {
+                println!("ForeignStaticItem");
+                Null
+            }
+            clean::MacroItem(ref m) => {
+                println!("MacroItem");
+                Null
+            }
+            clean::PrimitiveItem(ref p) => {
+                println!("PrimitiveItem");
+                Null
+            }
+            clean::AssociatedTypeItem => {
+                println!("AssociatedTypeItem");
+                Null
+            }
         }
     }
 }
@@ -137,18 +172,16 @@ impl ToJson for RType {
             clean::TyParamBinder(id) => {
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("TyParamBinder").unwrap()));
-                // let m = cache::typarams.get().unwrap().deref().clone();
-                // obj.insert(from_str("value").unwrap(),
-                //            String(m[ast_util::local_def(id)].clone()));
-                obj.insert(from_str("value").unwrap(), Null);
+                let c = cache::cache_key.get().unwrap();
+                obj.insert(from_str("value").unwrap(),
+                           String(c.typarams[ast_util::local_def(id)].clone()));
             }
             clean::Generic(did) => {
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("Generic").unwrap()));
-                // let m = cache::typarams.get().unwrap().deref().clone();
-                // obj.insert(from_str("value").unwrap(),
-                //            String(m[did].clone()));
-                obj.insert(from_str("value").unwrap(), Null);
+                let c = cache::cache_key.get().unwrap();
+                obj.insert(from_str("value").unwrap(),
+                           String(c.typarams[did].clone()));
             }
             clean::ResolvedPath{ ref did, ref typarams, ref path } => {
                 obj.insert(from_str("kind").unwrap(),
@@ -580,7 +613,15 @@ impl ToJson for RMutability {
 pub fn items_to_json(items: &Vec<clean::Item>) -> Json {
     let mut ret = vec![];
     for it in items.iter() {
-        ret.push(RItem(it.clone()).to_json());
+        let item_json = RItem(it.clone()).to_json();
+        let is_inner_null = match item_json.search(&"inner".to_string()) {
+            Some(ref inner) => inner.is_null(),
+            None => true
+        };
+
+        if !is_inner_null {
+            ret.push(item_json);
+        }
     }
     List(ret)
 }
