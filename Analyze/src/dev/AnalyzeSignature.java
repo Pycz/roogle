@@ -12,6 +12,7 @@ public class AnalyzeSignature {
 	public static LinkedList parseSignature(String signature){
 		LinkedList signatureList = new LinkedList();
 		
+		signature = signature.replaceAll(" ", "");
 		signature = signature.substring(1, signature.length()-1);
 		if (!signature.equals("")){
 			String[] signatureSplitByComa = signature.split(",");
@@ -34,7 +35,7 @@ public class AnalyzeSignature {
 		String var = oneSignatureSplitByColon[0];
 		var = var.replaceAll(" ", "");
 		String type = oneSignatureSplitByColon[1];
-		type = type.replaceAll(" ", "");
+		//type = type.replaceAll(" ", "");
 		Pattern patternForVar = Pattern.compile("[A-Z]");
 		String varFirstSing = var.substring(0, 1);
 		java.util.regex.Matcher isLetter = patternForVar.matcher(varFirstSing.toUpperCase());

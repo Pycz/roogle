@@ -17,6 +17,7 @@ public class AnalyzeGeneric {
 		LinkedList<LinkedList> genericList = new LinkedList();
 		LinkedList lifetimes = new LinkedList();
 		
+		generic = generic.replaceAll(" ", "");
 		generic = generic.substring(1, generic.length()-1);
 		if (!generic.equals("")){
 			String[] genericSplitByComa = generic.split(",");
@@ -43,7 +44,7 @@ public class AnalyzeGeneric {
 		try{
 			String[] oneGenericSplitByColon = oneGeneric.split(":");
 			String type = oneGenericSplitByColon[0];
-			type = type.replaceAll(" ", "");
+			//type = type.replaceAll(" ", "");
 			Pattern p = Pattern.compile("[A-Z]");
 			String firstLetter = type.substring(0, 1);
 			java.util.regex.Matcher isLetter = p.matcher(firstLetter);
@@ -54,7 +55,7 @@ public class AnalyzeGeneric {
 			typeAndGenerics.add(AnalyzeGenericsInOneGenericRequest(oneGenericSplitByColon[1]));
 		}
 		catch(Exception e){
-			oneGeneric = oneGeneric.replaceAll(" ", "");
+			//oneGeneric = oneGeneric.replaceAll(" ", "");
 			String first = oneGeneric.substring(0, 1);
 			if (!first.equals("'")){
 				throw new Exception();
@@ -70,7 +71,7 @@ public class AnalyzeGeneric {
 		
 		String[] genericsByPlus = generics.split("\\+");
 		for (String generic : genericsByPlus){
-			generic = generic.replaceAll(" ","");
+			//generic = generic.replaceAll(" ","");
 			genericsList.add(generic);
 		}
 		return genericsList;
