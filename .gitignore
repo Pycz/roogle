@@ -3,3 +3,7 @@
 .metadata
 /Analyze/bin/dev/*.class
 *.class
+/.recommenders
+.settings
+/Analyze/.classpath
+/Analyze/.project

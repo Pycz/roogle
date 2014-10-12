@@ -1,5 +1,7 @@
 package dev;
 
+import java.util.Map;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -28,6 +30,12 @@ public class JSONManager {
 		
 		if (!AnalyzeRequest.name().equals("")) {
 			requestJson.put("name", AnalyzeRequest.name());
+		}
+		if ( !AnalyzeRequest.genericList.isEmpty() ) {
+			JSONArray genArray = new JSONArray();
+			genArray.addAll(AnalyzeRequest.genericList);
+			
+			requestJson.put("generic", genArray);
 		}
 		if (!AnalyzeRequest.output().equals("")) {	
 			requestJson.put("output", AnalyzeRequest.output());
