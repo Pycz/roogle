@@ -14,6 +14,17 @@ public class AnalyzeRequest {
 	private static String output = "";
 	
 	/**
+	 * clean globals for tests
+	 */
+	public static void clean() {
+		name = "";
+		genericList = new LinkedList<LinkedList>();
+		lifetimesList = new LinkedList();
+		signatureList = new LinkedList();
+		output = "";
+	}
+	
+	/**
 	 * save extracted parameter to global variable
 	 * @param request - extractable string
 	 * @param pos - extract from 0 to pos
