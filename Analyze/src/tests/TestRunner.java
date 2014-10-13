@@ -51,5 +51,12 @@ public class TestRunner {
          System.out.println(failure.toString());
       }
       System.out.println("Test SignatureTest:" + result.wasSuccessful());
+      
+      
+      result = JUnitCore.runClasses(NameAndSignatureTest.class);
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }
+      System.out.println("Test NameAndSignatureTest:" + result.wasSuccessful());
    }
 }
