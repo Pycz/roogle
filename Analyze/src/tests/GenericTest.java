@@ -14,6 +14,7 @@ public class GenericTest {
 			
 	@Test
 	public void emptyGenric(){
+		AnalyzeRequest.clean();
 		String request = "<>";
 		JSONObject actual = AnalyzeRequest.analyze(request);
 		JSONObject expected = new JSONObject();
@@ -35,6 +36,17 @@ public class GenericTest {
 		typeAndGen.add(gen);
 		generic.add(typeAndGen);
 		expected.put("generic", generic);
+		assertEquals(expected, actual);
+		AnalyzeRequest.clean();
+	}
+	
+	@Test
+	public void lowCaseType() {
+		AnalyzeRequest.clean();
+		JSONObject actual = AnalyzeRequest.analyze("<g1: Type>");
+		JSONObject expected = new JSONObject();
+		LinkedList generic = new LinkedList();
+		expected.put("error", "parse error");
 		assertEquals(expected, actual);
 		AnalyzeRequest.clean();
 	}
