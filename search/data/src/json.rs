@@ -61,6 +61,7 @@ impl ToJson for RItemEnum {
 
         match *item {
             clean::FunctionItem(ref fun) => {
+                // println!("FunctionItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("function").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -68,6 +69,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::StructItem(ref st) => {
+                // println!("StructItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("struct").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -75,6 +77,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::EnumItem(ref en) => {
+                // println!("EnumItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("enum").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -82,6 +85,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::TypedefItem(ref td) => {
+                // println!("TypedefItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("typedef").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -89,6 +93,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::TraitItem(ref tr) => {
+                // println!("TraitItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("trait").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -96,6 +101,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::TyMethodItem(ref tm) => {
+                // println!("TyMethodItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("tymethod").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -103,6 +109,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::ImplItem(ref im) => {
+                // println!("ImplItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("impl").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -110,6 +117,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::MethodItem(ref m) => {
+                // println!("MethodItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("method").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -117,6 +125,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::ModuleItem(ref m) => {
+                // println!("ModuleItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("module").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -124,44 +133,47 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::ConstantItem(ref c) => {
+                // println!("ConstantItem");
+                obj.insert(from_str("kind").unwrap(),
+                           String(from_str("constant").unwrap()));
                 obj.insert("type_".to_string(), RType(c.type_.clone()).to_json());
                 obj.insert("expr".to_string(), String(c.expr.clone()));
                 Object(obj)
             }
             clean::StaticItem(ref st) => {
-                println!("StaticItem");
+                // println!("StaticItem");
                 Null
             }
             clean::ViewItemItem(ref v) => {
-                println!("ViewItemItem");
+                // println!("ViewItemItem");
                 Null
             }
             clean::StructFieldItem(ref sf) => {
-                println!("StructFieldItem");
+                // println!("StructFieldItem");
                 Null
             }
             clean::VariantItem(ref v) => {
-                println!("VariantItem");
+                // println!("VariantItem");
                 Null
             }
             clean::ForeignFunctionItem(ref f) => {
-                println!("ForeignFunctionItem");
+                // println!("ForeignFunctionItem");
                 Null
             }
             clean::ForeignStaticItem(ref st) => {
-                println!("ForeignStaticItem");
+                // println!("ForeignStaticItem");
                 Null
             }
             clean::MacroItem(ref m) => {
-                println!("MacroItem");
+                // println!("MacroItem");
                 Null
             }
             clean::PrimitiveItem(ref p) => {
-                println!("PrimitiveItem");
+                // println!("PrimitiveItem");
                 Null
             }
             clean::AssociatedTypeItem => {
-                println!("AssociatedTypeItem");
+                // println!("AssociatedTypeItem");
                 Null
             }
         }

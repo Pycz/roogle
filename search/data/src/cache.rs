@@ -18,9 +18,7 @@ pub struct Cache {
 
 impl Cache {
     pub fn generics(&mut self, generics: &clean::Generics) {
-        println!("generics");
         for typ in generics.type_params.iter() {
-            println!("Hello: {}", typ.name);
             self.typarams.insert(typ.did, typ.name.clone());
         }
     }
