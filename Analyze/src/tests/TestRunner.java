@@ -38,10 +38,18 @@ public class TestRunner {
       }
       System.out.println("UTest PrimaryRegexpTest:" + result.wasSuccessful());
       
+      
       result = JUnitCore.runClasses(GenericTest.class);
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
       }
       System.out.println("Test GenericTest:" + result.wasSuccessful());
+      
+      
+      result = JUnitCore.runClasses(SignatureTest.class);
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }
+      System.out.println("Test SignatureTest:" + result.wasSuccessful());
    }
 }
