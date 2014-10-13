@@ -9,9 +9,10 @@ use std::os;
 use rustdoc::core;
 use rustdoc::clean;
 use std::collections::HashMap;
-use serialize::json::{Json, ToJson};
+use serialize::json::{Json, ToJson, List};
 use rustdoc::fold::DocFolder;
 use getopts::{optflag,getopts,OptGroup};
+use cache::JsonFolder;
 mod cache;
 mod json;
 
@@ -21,7 +22,6 @@ fn print_usage(program: &str, opts: &[OptGroup]) {
     for opt in opts.iter() {
         println!("-{} --{}\t{}", opt.short_name, opt.long_name, opt.desc);
     }
-
 }
 
 
@@ -44,7 +44,8 @@ fn main() {
 
     let cratefile = &matches.free[0];
     let cr = Path::new(cratefile.as_slice());
-    let libs: Vec<Path> = vec![Path::new("/usr/local/lib/rustlib/i686-unknown-linux-gnu/lib")];
+    let libs: Vec<Path> = vec![Path::new(
+        "/usr/local/lib/rustlib/i686-unknown-linux-gnu/lib")];
     let cfgs: Vec<String> = vec![];
     let externs: core::Externs = HashMap::new();
     println!("starting to run rustc");
@@ -62,6 +63,6 @@ fn main() {
     cache.fold_crate(krate);
     cache::cache_key.replace(Some(cache.clone()));
 
-    println!("{}", json::RItem(cache.public_item.unwrap().clone())
-             .to_json().to_pretty_str());
+    let js = json::RItem(cache.public_item.clone().unwrap()).to_json();
+    println!("{}", cache.fold_json(&js));
 }

@@ -337,6 +337,8 @@ impl ToJson for RFunction {
         let mut obj = TreeMap::new();
         obj.insert(from_str("decl").unwrap(),
                    RFnDecl(fun.decl.clone()).to_json());
+        obj.insert(from_str("generics").unwrap(),
+                   RGenerics(fun.generics.clone()).to_json());
         Object(obj)
     }
 }
