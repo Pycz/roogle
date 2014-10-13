@@ -17,11 +17,13 @@ public class TestRunner {
       }
       System.out.println("UTest AnalyzeSignatureTest:" + result.wasSuccessful());
       
+      
       result = JUnitCore.runClasses(AnalyzeRequestTest.class);
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
       }
       System.out.println("UTest AnaLyzeRequestTest:" + result.wasSuccessful());
+      
       
       result = JUnitCore.runClasses(AnalyzeGenericTest.class);
       for (Failure failure : result.getFailures()) {
@@ -29,10 +31,17 @@ public class TestRunner {
       }
       System.out.println("UTest AnalyzeGenericTest:" + result.wasSuccessful());
       
+      
       result = JUnitCore.runClasses(PrimaryRegexpTest.class);
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
       }
       System.out.println("UTest PrimaryRegexpTest:" + result.wasSuccessful());
+      
+      result = JUnitCore.runClasses(GenericTest.class);
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }
+      System.out.println("Test GenericTest:" + result.wasSuccessful());
    }
 }
