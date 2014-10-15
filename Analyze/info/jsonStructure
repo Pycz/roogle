@@ -1,4 +1,5 @@
 {
+    "output": "outputFormat",
     "signature":[signaturesList],
     "name":"functionName",
     "lifetime":[lifetimesList],
