@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 
 public class AnalyzeRequest {
 
-	private static String mRequest = "map (a: Type1, b: Type2) <'a, T: G1 + G2> -> type";
+	private static String mRequest = "map (a: Type1, b: Type2) <'a, T: G1 + G2> -> String";
 	private static String name = "";
 	public static LinkedList<LinkedList> genericList = new LinkedList<LinkedList>();
 	public static LinkedList lifetimesList = new LinkedList();
