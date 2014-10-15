@@ -6,9 +6,10 @@
 }
 
 example:
-INPUT STRING: "map(a: Type1, b:Type2)<'b, A:Gen1+Gen2, B:Gen3>"
+INPUT STRING: "map(a: Type1, b:Type2)<'b, A:Gen1+Gen2, B:Gen3>->anothertype"
 OUTPUT JSON:
 {
+    "output": "anothertype",
     "signature":[
 		 ["a","Type1"],
 		 ["b","Type2"]
