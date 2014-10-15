@@ -18,8 +18,10 @@ public class GenericTest {
 		JSONObject expected = new JSONObject();
 		expected.put("error", "parse error");
 		assertEquals(expected, actual);
+		AnalyzeRequest.clean();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void sipmeTest() {
 
@@ -34,6 +36,7 @@ public class GenericTest {
 		generic.add(typeAndGen);
 		expected.put("generic", generic);
 		assertEquals(expected, actual);
+		AnalyzeRequest.clean();
 	}
 
 	
@@ -44,6 +47,7 @@ public class GenericTest {
 		JSONObject expected = new JSONObject();
 		expected.put("error", "parse error");
 		assertEquals(expected, actual);
+		AnalyzeRequest.clean();
 	}
 	
 }
