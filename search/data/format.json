@@ -34,12 +34,12 @@ RItem = {
 }
 
 <Generic> = {
-    "kine": "Generic",
+    "kind": "Generic",
     "value": <string>
 }
 
 <ResolvedPath> = {
-    "kine": "ResolvedPath",
+    "kind": "ResolvedPath",
     "value": {
         "global": <boolean>,
         "segments": [{
