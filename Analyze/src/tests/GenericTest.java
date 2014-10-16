@@ -23,7 +23,7 @@ public class GenericTest {
 		AnalyzeRequest.clean();
 	}
 	
-	@SuppressWarnings("unchecked")
+//@SuppressWarnings("unchecked")
 	@Test
 	public void sipmleTest() {
 		AnalyzeRequest.clean();
@@ -129,7 +129,7 @@ public class GenericTest {
 		AnalyzeRequest.clean();		
 	}
 	
-	
+	@Test
 	public void twoTypeThreeAndLifetimeGeneric(){
 		AnalyzeRequest.clean();
 		String request = "<'a,Type1: G1 + G2+G3, Type2: G2+ G4+G5>";
@@ -160,6 +160,7 @@ public class GenericTest {
 		AnalyzeRequest.clean();
 	}
 	
+	@Test
 	public void twoTypeThreeAndTwoLifetimeGeneric(){
 		AnalyzeRequest.clean();
 		String request = "<'a, 'b,Type1: G1 + G2+G3, Type2: G2+ G4+G5>";
