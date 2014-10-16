@@ -57,7 +57,8 @@ public class AnalyzeGeneric {
 		catch(Exception e){
 			//oneGeneric = oneGeneric.replaceAll(" ", "");
 			String first = oneGeneric.substring(0, 1);
-			if (!first.equals("'")){
+			String anotherWord = oneGeneric.substring(1, oneGeneric.length());
+			if (!first.equals("'") || anotherWord.contains("'")){
 				throw new Exception();
 			}
 			lifetimes.add(oneGeneric+"'");
