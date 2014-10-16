@@ -66,12 +66,18 @@ public class AnalyzeGeneric {
 		return typeAndGenerics;
 	}
 	
-	private static LinkedList AnalyzeGenericsInOneGenericRequest(String generics){
+	private static LinkedList AnalyzeGenericsInOneGenericRequest(String generics) throws Exception{
 		LinkedList genericsList = new LinkedList();
 		
 		String[] genericsByPlus = generics.split("\\+");
 		for (String generic : genericsByPlus){
 			//generic = generic.replaceAll(" ","");
+			Pattern p = Pattern.compile("[A-Z]");
+			String firstLetter = generic.substring(0, 1);
+			java.util.regex.Matcher isLetter = p.matcher(firstLetter);
+			if (!(firstLetter.toUpperCase()).equals(firstLetter) || (!isLetter.matches())) { 
+				throw new Exception();
+			}
 			genericsList.add(generic);
 		}
 		return genericsList;
