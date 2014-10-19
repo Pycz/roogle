@@ -11,7 +11,7 @@ import unitTest.PrimaryRegexpTest;
 
 public class TestRunner {
    public static void main(String[] args) {
-      Result result = JUnitCore.runClasses(AnalyzeSignatureTest.class);
+     Result result = JUnitCore.runClasses(AnalyzeSignatureTest.class);
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
       }
@@ -65,5 +65,19 @@ public class TestRunner {
          System.out.println(failure.toString());
       }
       System.out.println("Test SignatureAndOutputTest:" + result.wasSuccessful());
+       
+       
+      result = JUnitCore.runClasses(NameGenericOutputTest.class);
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }
+      System.out.println("Test NameGenericOutputTest:" + result.wasSuccessful());
+      
+      
+     result = JUnitCore.runClasses(NameSignatureOutputTest.class);
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }
+      System.out.println("Test NameSignatureOutputTest:" + result.wasSuccessful());
    }
 }

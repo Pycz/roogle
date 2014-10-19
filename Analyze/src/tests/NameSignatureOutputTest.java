@@ -16,12 +16,46 @@ import org.junit.Test;
  *
  * @author Алсу
  */
-public class NameGenericSignatureTest { 
+public class NameSignatureOutputTest {
+    @Test
+    public void allRight() {
+        AnalyzeRequest.clean();
+        String request = "map (a:Type) -> Type";
+        JSONObject actual = AnalyzeRequest.analyze(request);
+        JSONObject expected = new JSONObject();
+        expected.put("name", "map");
+        LinkedList signature = new LinkedList();	
+        LinkedList typeAndVar = new LinkedList(); 
+        typeAndVar.add("a");
+        typeAndVar.add("Type");
+        signature.add(typeAndVar);
+        expected.put("signature", signature);
+        expected.put("output", "Type");
+        assertEquals(expected, actual);
+        AnalyzeRequest.clean();
+    }   
+     @Test
+     public void right() {
+        AnalyzeRequest.clean();
+        String request = "map11(a:Type)->type";
+        JSONObject actual = AnalyzeRequest.analyze(request);
+        JSONObject expected = new JSONObject();
+         expected.put("name", "map11");
+        LinkedList signature = new LinkedList();	
+        LinkedList typeAndVar = new LinkedList(); 
+        typeAndVar.add("a");
+        typeAndVar.add("Type");
+        signature.add(typeAndVar);
+        expected.put("signature", signature);
+         expected.put("output", "type");
+        assertEquals(expected, actual);
+        AnalyzeRequest.clean();
+    }
     @Ignore
     @Test
-    public void wrongGeneric3() {
+    public void wrongSignatureAndOutput() {
         AnalyzeRequest.clean();
-        String request = "map(war:Type)<Type:G+>";
+        String request = "map11(a:Type+)->tYpe";
         JSONObject actual = AnalyzeRequest.analyze(request);
         JSONObject expected = new JSONObject();
         expected.put("error", "parse error");
@@ -30,47 +64,23 @@ public class NameGenericSignatureTest {
     }
     @Ignore
     @Test
-    public void wrongGeneric() {
+     public void wrongOutput() {
         AnalyzeRequest.clean();
-        String request = "map(a:Type)<'Alll'>";
+        String request = "map(a:Type)->tYpe";
         JSONObject actual = AnalyzeRequest.analyze(request);
         JSONObject expected = new JSONObject();
         expected.put("error", "parse error");
         assertEquals(expected, actual);
         AnalyzeRequest.clean();
     }
-    @Ignore
     @Test
-    public void wrongGeneric1() {
+    public void wrongOutput1() {
         AnalyzeRequest.clean();
-        String request = "map(a:Type)<'Alll:G>";
+        String request = "map11(a:Type)->tYPe";
         JSONObject actual = AnalyzeRequest.analyze(request);
         JSONObject expected = new JSONObject();
         expected.put("error", "parse error");
         assertEquals(expected, actual);
         AnalyzeRequest.clean();
     }
-    @Ignore
-    @Test
-    public void wrongGeneric2() {
-        AnalyzeRequest.clean();
-        String request = "map(a:Type)<Type:'G>";
-        JSONObject actual = AnalyzeRequest.analyze(request);
-        JSONObject expected = new JSONObject();
-        expected.put("error", "parse error");
-        assertEquals(expected, actual);
-        AnalyzeRequest.clean();
-    }
-    @Ignore
-    @Test
-    public void wrongSignature() {
-        AnalyzeRequest.clean();
-        String request = "map(war:Type,)<Type:G>";
-        JSONObject actual = AnalyzeRequest.analyze(request);
-        JSONObject expected = new JSONObject();
-        expected.put("error", "parse error");
-        assertEquals(expected, actual);
-        AnalyzeRequest.clean();
-    }
-    
 }
