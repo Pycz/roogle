@@ -74,10 +74,34 @@ public class TestRunner {
       System.out.println("Test NameGenericOutputTest:" + result.wasSuccessful());
       
       
-     result = JUnitCore.runClasses(NameSignatureOutputTest.class);
+      result = JUnitCore.runClasses(NameSignatureOutputTest.class);
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
       }
       System.out.println("Test NameSignatureOutputTest:" + result.wasSuccessful());
+      
+      result = JUnitCore.runClasses(GenericAndSignature.class);
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }
+      System.out.println("Test GenericAndSignature:" + result.wasSuccessful());
+      
+      result = JUnitCore.runClasses(GenericOutput.class);
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }
+      System.out.println("Test GenericOutput:" + result.wasSuccessful());
+      
+      result = JUnitCore.runClasses(GenericSignatureOutput.class);
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }
+      System.out.println("Test GenericSignatureOutput:" + result.wasSuccessful());
+     
+      result = JUnitCore.runClasses(NameGenericSignatureOutput.class);
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }
+      System.out.println("Test NameGenericSignatureOutput:" + result.wasSuccessful());
    }
 }
