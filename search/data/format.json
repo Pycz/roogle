@@ -4,22 +4,22 @@
 RItem = {
     "name": "foo",
     "inner": {
-        "kind": "function"
-    },
-    "value": {
-        "decl": {
-            "inputs": [{
-                "type_": <RType>,
-                "name": <string>
-            }],
-            "output": <RType>
-        },
-        "generics": {
-            "lifetimes": [<string>,...],
-            "type_params": [{
-                "name": <string>,
-                "bounds": <string> | <RType> | <RUnboxedFnType>
-            }]
+        "kind": "function",
+        "value": {
+            "decl": {
+                "inputs": [{
+                    "type_": <RType>,
+                    "name": <string>
+                }],
+                "output": <RType>
+            },
+            "generics": {
+                "lifetimes": [<string>,...],
+                "type_params": [{
+                    "name": <string>,
+                    "bounds": <string> | <RType> | <RUnboxedFnType>
+                }]
+            }
         }
     }
 }
@@ -34,12 +34,12 @@ RItem = {
 }
 
 <Generic> = {
-    "kine": "Generic",
+    "kind": "Generic",
     "value": <string>
 }
 
 <ResolvedPath> = {
-    "kine": "ResolvedPath",
+    "kind": "ResolvedPath",
     "value": {
         "global": <boolean>,
         "segments": [{
