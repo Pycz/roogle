@@ -12,6 +12,7 @@ public class AnalyzeGeneric {
 	 * @param generic
 	 * @return LinkedList - [ [lifetimesList], [[type1, [GenericsList]], [type2, [GenericsList2]] ]], null mean error
 	 */
+	static Pattern allow = Pattern.compile("[a-zA-Z_0-9]+");
 	public static LinkedList<LinkedList> parseGeneric(String generic){
 		LinkedList<LinkedList> result = new LinkedList();
 		LinkedList<LinkedList> genericList = new LinkedList();
@@ -48,7 +49,8 @@ public class AnalyzeGeneric {
 			Pattern p = Pattern.compile("[A-Z]");
 			String firstLetter = type.substring(0, 1);
 			java.util.regex.Matcher isLetter = p.matcher(firstLetter);
-			if (!(firstLetter.toUpperCase()).equals(firstLetter) || (!isLetter.matches())) { 
+			java.util.regex.Matcher isAllow = allow.matcher(type);
+			if (!(firstLetter.toUpperCase()).equals(firstLetter) || !isLetter.matches() || !isAllow.matches()) { 
 				throw new Exception();
 			}
 			typeAndGenerics.add(type);
@@ -58,7 +60,9 @@ public class AnalyzeGeneric {
 			//oneGeneric = oneGeneric.replaceAll(" ", "");
 			String first = oneGeneric.substring(0, 1);
 			String anotherWord = oneGeneric.substring(1, oneGeneric.length());
-			if (!first.equals("'") || anotherWord.contains("'")){
+			Pattern allowLifetime = Pattern.compile("[a-z][a-zA-Z_0-9]*");
+			java.util.regex.Matcher isAllow = allowLifetime.matcher(anotherWord);
+			if (!first.equals("'") || anotherWord.contains("'") || !isAllow.matches()){
 				throw new Exception();
 			}
 			lifetimes.add(oneGeneric+"'");
@@ -76,7 +80,8 @@ public class AnalyzeGeneric {
 			Pattern p = Pattern.compile("[A-Z]");
 			String firstLetter = generic.substring(0, 1);
 			java.util.regex.Matcher isLetter = p.matcher(firstLetter);
-			if (!(firstLetter.toUpperCase()).equals(firstLetter) || (!isLetter.matches())) { 
+			java.util.regex.Matcher isAllow = allow.matcher(generic);
+			if (!(firstLetter.toUpperCase()).equals(firstLetter) || (!isLetter.matches()|| !isAllow.matches())) { 
 				throw new Exception();
 			}
 			genericsList.add(generic);
