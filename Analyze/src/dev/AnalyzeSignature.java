@@ -9,6 +9,7 @@ public class AnalyzeSignature {
 	 * @param signature
 	 * @return LinkedList - [[var, Type], [var2, Type2], ...], null mean error 
 	 */
+	static Pattern allow = Pattern.compile("[a-zA-Z_0-9]+");
 	public static LinkedList parseSignature(String signature){
 		LinkedList signatureList = new LinkedList();
 		
@@ -39,13 +40,15 @@ public class AnalyzeSignature {
 		Pattern patternForVar = Pattern.compile("[A-Z]");
 		String varFirstSing = var.substring(0, 1);
 		java.util.regex.Matcher isLetter = patternForVar.matcher(varFirstSing.toUpperCase());
-		if (!(varFirstSing.toLowerCase()).equals(varFirstSing) || !isLetter.matches()){
+		java.util.regex.Matcher isAllow = allow.matcher(var);
+		if (!(varFirstSing.toLowerCase()).equals(varFirstSing) || !isLetter.matches() || !isAllow.matches()){
 			throw new Exception();
 		}
 		varAndType.add(var);
 		String typeFirstSing = type.substring(0, 1);
 		isLetter = patternForVar.matcher(typeFirstSing.toUpperCase());
-		if (!(typeFirstSing.toUpperCase()).equals(typeFirstSing) || !isLetter.matches()){
+		isAllow = allow.matcher(type);
+		if (!(typeFirstSing.toUpperCase()).equals(typeFirstSing) || !isLetter.matches() || !isAllow.matches()){
 			throw new Exception();
 		}
 		varAndType.add(type);
