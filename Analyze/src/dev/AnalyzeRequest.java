@@ -211,7 +211,7 @@ public class AnalyzeRequest {
 			}
 			
 			if ( type == dev.PrimaryRegexp.type.PARSE_ERROR ) {
-				System.out.println("parse error");
+				//System.out.println("parse error");
 				return json = JSONManager.error();
 			}
 		}

@@ -5,7 +5,7 @@ public class PrimaryRegexp {
 	public static String nameRegex = "[ \t]*[a-z_0-9]+.*";
 	private static String genericRegex = "[ \t]*<.*>.*"; 
 	private static String signatureRegex = "[ \t]*[(].*[)].*";
-	private static String outputRegex = "[ \t]*-[ \t]*>[ \t]*[a-zA-Z_0-9]+.*";
+	public static String outputRegex = "[ \t]*-[ \t]*>[ \t]*[a-zA-Z_0-9]+.*";
 	
 	public enum type {NAME, GENERIC, SIGNATURE, OUTPUT, PARSE_ERROR}
 	
