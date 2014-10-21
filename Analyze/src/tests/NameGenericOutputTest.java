@@ -17,6 +17,7 @@ import org.junit.Test;
  * @author Алсу
  */
 public class NameGenericOutputTest {
+	
     @Test
     public void allRight() {
         AnalyzeRequest.clean();
@@ -36,7 +37,7 @@ public class NameGenericOutputTest {
         assertEquals(expected, actual);
         AnalyzeRequest.clean();
     }
-    @Ignore
+   
     @Test
     public void wrongGeneric() {
         AnalyzeRequest.clean();
@@ -47,6 +48,18 @@ public class NameGenericOutputTest {
         assertEquals(expected, actual);
         AnalyzeRequest.clean();
     }
+    
+    @Test
+    public void wrongGenericAnother() {
+        AnalyzeRequest.clean();
+        String request = "map<+Type:G>->Type";
+        JSONObject actual = AnalyzeRequest.analyze(request);
+        JSONObject expected = new JSONObject();
+        expected.put("error", "parse error");
+        assertEquals(expected, actual);
+        AnalyzeRequest.clean();
+    }
+    
     @Test
     public void wrongOutput() {
         AnalyzeRequest.clean();
@@ -87,4 +100,5 @@ public class NameGenericOutputTest {
         assertEquals(expected, actual);
         AnalyzeRequest.clean();
     }
+    
 }
