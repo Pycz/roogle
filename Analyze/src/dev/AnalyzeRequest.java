@@ -1,12 +1,14 @@
 package dev;
 
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.simple.JSONObject;
 
 public class AnalyzeRequest {
 
-	private static String mRequest = "map (a: Type1, b: Type2) <'a, T: G1 + G2> -> String";
+	private static String mRequest = "map (a: Type1, b: Type2) <'a, T: G1 + G2> -> String ";
 	private static String name = "";
 	public static LinkedList<LinkedList> genericList = new LinkedList<LinkedList>();
 	public static LinkedList lifetimesList = new LinkedList();
@@ -80,7 +82,10 @@ public class AnalyzeRequest {
 		case 3:
 		{
 			if ( output.equals("")) {
-				output = request.substring(0, pos);
+				/*
+				 * отправить на нормальную обработку
+				 */
+				output = AnalyzeOutput.parseOutput(request.substring(0, pos));
 				return true;
 			}
 			else {
@@ -198,13 +203,16 @@ public class AnalyzeRequest {
 			}
 			
 			if ( type == dev.PrimaryRegexp.type.OUTPUT ) {
-				pos = request.indexOf(">") + 1; 
-				request = request.substring(pos);
-				request = removeWhitespace(request);
-				while ( pos < request.length() && String.valueOf(request.charAt(pos)).matches("[a-z]") ) {
-					pos++;
+				
+				Pattern pattern = Pattern.compile("[ \t]*-[ \t]*>[ \t]*[a-zA-Z0-9_]+");
+				Matcher matcher = pattern.matcher(request);
+				if (matcher.find())
+				{
+				    request = extract(request, matcher.end(), 3);
+				} else {
+					return JSONManager.error();
 				}
-				request = extract(request, pos, 3);
+
 				if (request == null) {
 					return JSONManager.error();
 				}
