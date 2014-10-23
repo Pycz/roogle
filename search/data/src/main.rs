@@ -55,6 +55,7 @@ fn main() {
     println!("finished with rustc");
 
     let mut cache = cache::Cache {
+        crate_name: krate.name.clone(),
         public_item: krate.module.clone(),
         typarams: analysis.external_typarams.borrow_mut().take().unwrap(),
     };

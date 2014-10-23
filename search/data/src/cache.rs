@@ -11,6 +11,7 @@ use serialize::json::{ToJson, Json, String, JsonObject, Object, List, Boolean
 
 #[deriving(Clone)]
 pub struct Cache {
+    pub crate_name: String,
     pub public_item: Option<clean::Item>,
     pub typarams: HashMap<ast::DefId, String>,
 }
@@ -101,7 +102,12 @@ impl JsonFolder for Cache {
             Some(mn) => mn.as_string().unwrap().to_string(),
             None => String::new(),
         };
-        module.push(String(module_name));
+
+        if module_name.is_empty() && module.is_empty() {
+            module.push(String(self.crate_name.clone()));
+        } else {
+            module.push(String(module_name));
+        }
 
         match *items {
             List(ref l) => {
