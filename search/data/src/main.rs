@@ -55,6 +55,7 @@ fn main() {
     println!("finished with rustc");
 
     let mut cache = cache::Cache {
+        crate_name: krate.name.clone(),
         public_item: krate.module.clone(),
         typarams: analysis.external_typarams.borrow_mut().take().unwrap(),
     };
@@ -63,5 +64,7 @@ fn main() {
     cache::cache_key.replace(Some(cache.clone()));
 
     let js = json::RItem(cache.public_item.clone().unwrap()).to_json();
-    println!("{}", cache.fold_json(&js));
+    // println!("{}", js.to_pretty_str());
+    cache.fold_json(&js);
+    println!("{}", cache.fold_json(&js).to_pretty_str());
 }
