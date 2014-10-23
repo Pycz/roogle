@@ -49,6 +49,13 @@ impl ToJson for RItem {
         }
         obj.insert(from_str("inner").unwrap(),
                    RItemEnum(item.inner.clone()).to_json());
+
+        match item.doc_value() {
+            Some(ref doc) => {obj.insert("doc".to_string(),
+                                        String(doc.to_string()));},
+            _ => {}
+        };
+
         Object(obj)
     }
 }

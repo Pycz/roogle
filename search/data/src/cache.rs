@@ -126,6 +126,10 @@ impl JsonFolder for Cache {
                  module: &mut Vec<Json>) {
         let mut jo = func.clone();
         jo.insert("module".to_string(), List(module.clone()));
+        match func.find(&"doc".to_string()) {
+            Some(s) => {jo.insert("doc".to_string(), s.clone());},
+            None => {}
+        };
         list.push(Object(jo));
     }
 }
