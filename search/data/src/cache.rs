@@ -48,20 +48,25 @@ impl DocFolder for Cache {
 
 pub trait JsonFolder {
     fn fold_json(&self, json: &Json) -> Json;
-    fn fold_json_inner(&self, json: &Json, list: &mut Vec<Json>);
-    fn fold_module(&self, json: &JsonObject, list: &mut Vec<Json>);
-    fn fold_func(&self, json: &JsonObject, list: &mut Vec<Json>);
+    fn fold_json_inner(&self, json: &Json, list: &mut Vec<Json>,
+                       module: &mut Vec<Json>);
+    fn fold_module(&self, json: &JsonObject, list: &mut Vec<Json>,
+                   module: &mut Vec<Json>);
+    fn fold_func(&self, json: &JsonObject, list: &mut Vec<Json>,
+                 module: &mut Vec<Json>);
 }
 
 
 impl JsonFolder for Cache {
     fn fold_json(&self, json: &Json) -> Json {
         let mut list: Vec<Json> = vec![];
-        self.fold_json_inner(json, &mut list);
+        let mut module: Vec<Json> = vec![];
+        self.fold_json_inner(json, &mut list, &mut module);
         List(list)
     }
 
-    fn fold_json_inner(&self, json: &Json, list: &mut Vec<Json>) {
+    fn fold_json_inner(&self, json: &Json, list: &mut Vec<Json>,
+                       module: &mut Vec<Json>) {
         let inner_key = "inner".to_string();
         let kind_key = "kind".to_string();
 
@@ -72,9 +77,9 @@ impl JsonFolder for Cache {
                 let kind_str = kind.as_string().unwrap();
 
                 match kind_str {
-                    "module" => self.fold_module(jo, list),
-                    "trait" => self.fold_module(jo, list),
-                    "function" => self.fold_func(jo, list),
+                    "module" => self.fold_module(jo, list, module),
+                    "trait" => self.fold_module(jo, list, module),
+                    "function" => self.fold_func(jo, list, module),
                     _ => {}
                 }
             }
@@ -82,26 +87,40 @@ impl JsonFolder for Cache {
         }
     }
 
-    fn fold_module(&self, obj: &JsonObject, list: &mut Vec<Json>) {
+    fn fold_module(&self, obj: &JsonObject, list: &mut Vec<Json>,
+                   module: &mut Vec<Json>) {
         let inner_key = "inner".to_string();
         let value_key = "value".to_string();
         let items_key = "items".to_string();
-        let items = obj.find(&inner_key).unwrap()
-            .find(&value_key).unwrap()
+        let name_key = "name".to_string();
+        let inner = obj.find(&inner_key).unwrap();
+        let items = inner.find(&value_key).unwrap()
             .find(&items_key).unwrap();
+
+        let module_name = match obj.find(&name_key) {
+            Some(mn) => mn.as_string().unwrap().to_string(),
+            None => String::new(),
+        };
+        module.push(String(module_name));
 
         match *items {
             List(ref l) => {
                 for item in l.iter() {
-                    self.fold_json_inner(item, list);
+                    self.fold_json_inner(item, list, module);
                 }
             },
             _ => {}
         }
+
+        let i = module.len() - 1;
+        module.remove(i);
     }
 
-    fn fold_func(&self, func: &JsonObject, list: &mut Vec<Json>) {
-        list.push(Object(func.clone()));
+    fn fold_func(&self, func: &JsonObject, list: &mut Vec<Json>,
+                 module: &mut Vec<Json>) {
+        let mut jo = func.clone();
+        jo.insert("module".to_string(), List(module.clone()));
+        list.push(Object(jo));
     }
 }
 
