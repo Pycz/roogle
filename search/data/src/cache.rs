@@ -124,14 +124,40 @@ impl JsonFolder for Cache {
 
     fn fold_func(&self, func: &JsonObject, list: &mut Vec<Json>,
                  module: &mut Vec<Json>) {
+        let func_name = func.find(&"name".to_string()).unwrap()
+            .as_string().unwrap();
         let mut jo = func.clone();
+
         jo.insert("module".to_string(), List(module.clone()));
+
         match func.find(&"doc".to_string()) {
             Some(s) => {jo.insert("doc".to_string(), s.clone());},
             None => {}
         };
+
+        let url = doc_url(func_name, "fn", module);
+        jo.insert("url".to_string(), String(url));
+
         list.push(Object(jo));
     }
+}
+
+static rust_doc_link: &'static str = "http://doc.rust-lang.org";
+
+pub fn doc_url(item_name: &str, item_type: &str, module: &Vec<Json>) -> String {
+    let sep = "/";
+    let mut url = rust_doc_link.to_string();
+
+    url = module.iter().fold(url, |u, s| {
+        u + sep + s.as_string().unwrap()
+    });
+
+    url.push_str(sep);
+    url.push_str(item_type);
+    url.push_str(".");
+    url.push_str(item_name);
+    url.push_str(".html");
+    url
 }
 
 local_data_key!(pub cache_key: Cache)
