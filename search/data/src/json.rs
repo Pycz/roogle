@@ -266,6 +266,7 @@ impl ToJson for RType {
             clean::Bottom => {
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("Bottom").unwrap()));
+                obj.insert("value".to_string(), String("!".to_string()));
             }
             clean::RawPointer(ref m, box ref t) => {
                 obj.insert(from_str("kind").unwrap(),
@@ -552,17 +553,26 @@ impl ToJson for RTyParam {
 impl ToJson for RTyParamBound {
     fn to_json(&self) -> Json {
         let RTyParamBound(ref typb) = *self;
+        let mut obj = TreeMap::new();
         match *typb {
             clean::RegionBound(ref l) => {
-                String(format!("{}", l))
+                obj.insert("bound_type".to_string(),
+                           String("RegionBound".to_string()));
+                obj.insert("bound".to_string(), String(format!("{}", l)));
             },
             clean::TraitBound(ref ty) => {
-                RType(ty.clone()).to_json()
+                obj.insert("bound_type".to_string(),
+                           String("TraitBound".to_string()));
+                obj.insert("bound".to_string(), RType(ty.clone()).to_json());
             },
             clean::UnboxedFnBound(ref uft) => {
-                RUnboxedFnType(uft.clone()).to_json()
+                obj.insert("bound_type".to_string(),
+                           String("UnboxedFnBound".to_string()));
+                obj.insert("bound".to_string(),
+                           RUnboxedFnType(uft.clone()).to_json());
             }
-        }
+        };
+        Object(obj)
     }
 }
 
