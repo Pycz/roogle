@@ -43,7 +43,7 @@ public class AnalyzeRequest {
 					return true;
 				}
 				else {
-					System.out.println("ERROR, duplicate name");
+					//System.out.println("ERROR, duplicate name");
 					return false;
 				}
 			}
@@ -61,7 +61,7 @@ public class AnalyzeRequest {
 				return true;
 			}
 			else {
-				System.out.println("ERROR, duplicate generic");
+				//System.out.println("ERROR, duplicate generic");
 				return false;
 			}
 		}
@@ -75,7 +75,7 @@ public class AnalyzeRequest {
 				return true;
 			}
 			else {
-				System.out.println("ERROR, duplicate signature");
+				//System.out.println("ERROR, duplicate signature");
 				return false;
 			}
 		}
@@ -89,7 +89,7 @@ public class AnalyzeRequest {
 				return true;
 			}
 			else {
-				System.out.println("ERROR, duplicate output");
+				//System.out.println("ERROR, duplicate output");
 				return false;
 			}
 		}
@@ -230,20 +230,20 @@ public class AnalyzeRequest {
 	
 	public static void main (String [] args) {
 		
-		String request = mRequest;		
-		System.out.println("request: " + request);		
+		String request = args[0];	//mRequest; 	
+		//System.out.println("request: " + request);		
 		
 		JSONObject obj = analyze(request);
 		
-		System.out.println("");
-		System.out.println("formed json:");
+//		System.out.println("");
+//		System.out.println("formed json:");
 		System.out.println(obj);
-		
-		System.out.println("");
-		System.out.println("name: " + name);
-		System.out.println("generic: " + genericList);
-		System.out.println("lifetime: " + lifetimesList);
-		System.out.println("signature: " + signatureList);
-		System.out.println("output: " + output);		
+//		
+//		System.out.println("");
+//		System.out.println("name: " + name);
+//		System.out.println("generic: " + genericList);
+//		System.out.println("lifetime: " + lifetimesList);
+//		System.out.println("signature: " + signatureList);
+//		System.out.println("output: " + output);		
 	}
 }
