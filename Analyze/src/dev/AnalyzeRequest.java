@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 
 public class AnalyzeRequest {
 
-	private static String mRequest = "map (a: Type1, b: Type2) <'a, T: G1 + G2> -> String ";
+	private static String mRequest = "map(a:Type)->tYpe"; //"map (a: Type1, b: Type2) <'a, T: G1 + G2> -> String ";
 	private static String name = "";
 	public static LinkedList<LinkedList> genericList = new LinkedList<LinkedList>();
 	public static LinkedList lifetimesList = new LinkedList();
@@ -82,11 +82,11 @@ public class AnalyzeRequest {
 		case 3:
 		{
 			if ( output.equals("")) {
-				/*
-				 * отправить на нормальную обработку
-				 */
 				output = AnalyzeOutput.parseOutput(request.substring(0, pos));
-				return true;
+				if (!output.equals("")) {
+					return true;
+				}
+				return false;
 			}
 			else {
 				//System.out.println("ERROR, duplicate output");
@@ -230,7 +230,7 @@ public class AnalyzeRequest {
 	
 	public static void main (String [] args) {
 		
-		String request = args[0];	//mRequest; 	
+		String request = /*args[0];*/ mRequest; 	
 		//System.out.println("request: " + request);		
 		
 		JSONObject obj = analyze(request);
