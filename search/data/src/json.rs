@@ -36,6 +36,7 @@ pub struct RClosureDecl(pub clean::ClosureDecl);
 pub struct RBareFunctionDecl(pub clean::BareFunctionDecl);
 pub struct RMutability(pub clean::Mutability);
 pub struct RBorrowedRef(pub clean::Type);
+pub struct RUnboxedFnType(pub clean::UnboxedFnType);
 
 
 impl ToJson for RItem {
@@ -48,6 +49,13 @@ impl ToJson for RItem {
         }
         obj.insert(from_str("inner").unwrap(),
                    RItemEnum(item.inner.clone()).to_json());
+
+        match item.doc_value() {
+            Some(ref doc) => {obj.insert("doc".to_string(),
+                                        String(doc.to_string()));},
+            _ => {}
+        };
+
         Object(obj)
     }
 }
@@ -60,6 +68,7 @@ impl ToJson for RItemEnum {
 
         match *item {
             clean::FunctionItem(ref fun) => {
+                // println!("FunctionItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("function").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -67,6 +76,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::StructItem(ref st) => {
+                // println!("StructItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("struct").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -74,6 +84,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::EnumItem(ref en) => {
+                // println!("EnumItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("enum").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -81,6 +92,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::TypedefItem(ref td) => {
+                // println!("TypedefItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("typedef").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -88,6 +100,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::TraitItem(ref tr) => {
+                // println!("TraitItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("trait").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -95,6 +108,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::TyMethodItem(ref tm) => {
+                // println!("TyMethodItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("tymethod").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -102,6 +116,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::ImplItem(ref im) => {
+                // println!("ImplItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("impl").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -109,6 +124,7 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::MethodItem(ref m) => {
+                // println!("MethodItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("method").unwrap()));
                 obj.insert(from_str("value").unwrap(),
@@ -116,13 +132,57 @@ impl ToJson for RItemEnum {
                 Object(obj)
             }
             clean::ModuleItem(ref m) => {
+                // println!("ModuleItem");
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("module").unwrap()));
                 obj.insert(from_str("value").unwrap(),
                            RModule(m.clone()).to_json());
                 Object(obj)
             }
-            _ => { Null }
+            clean::ConstantItem(ref c) => {
+                // println!("ConstantItem");
+                obj.insert(from_str("kind").unwrap(),
+                           String(from_str("constant").unwrap()));
+                obj.insert("type_".to_string(), RType(c.type_.clone()).to_json());
+                obj.insert("expr".to_string(), String(c.expr.clone()));
+                Object(obj)
+            }
+            clean::StaticItem(ref st) => {
+                // println!("StaticItem");
+                Null
+            }
+            clean::ViewItemItem(ref v) => {
+                // println!("ViewItemItem");
+                Null
+            }
+            clean::StructFieldItem(ref sf) => {
+                // println!("StructFieldItem");
+                Null
+            }
+            clean::VariantItem(ref v) => {
+                // println!("VariantItem");
+                Null
+            }
+            clean::ForeignFunctionItem(ref f) => {
+                // println!("ForeignFunctionItem");
+                Null
+            }
+            clean::ForeignStaticItem(ref st) => {
+                // println!("ForeignStaticItem");
+                Null
+            }
+            clean::MacroItem(ref m) => {
+                // println!("MacroItem");
+                Null
+            }
+            clean::PrimitiveItem(ref p) => {
+                // println!("PrimitiveItem");
+                Null
+            }
+            clean::AssociatedTypeItem => {
+                // println!("AssociatedTypeItem");
+                Null
+            }
         }
     }
 }
@@ -137,18 +197,16 @@ impl ToJson for RType {
             clean::TyParamBinder(id) => {
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("TyParamBinder").unwrap()));
-                // let m = cache::typarams.get().unwrap().deref().clone();
-                // obj.insert(from_str("value").unwrap(),
-                //            String(m[ast_util::local_def(id)].clone()));
-                obj.insert(from_str("value").unwrap(), Null);
+                let c = cache::cache_key.get().unwrap();
+                obj.insert(from_str("value").unwrap(),
+                           String(c.typarams[ast_util::local_def(id)].clone()));
             }
             clean::Generic(did) => {
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("Generic").unwrap()));
-                // let m = cache::typarams.get().unwrap().deref().clone();
-                // obj.insert(from_str("value").unwrap(),
-                //            String(m[did].clone()));
-                obj.insert(from_str("value").unwrap(), Null);
+                let c = cache::cache_key.get().unwrap();
+                obj.insert(from_str("value").unwrap(),
+                           String(c.typarams[did].clone()));
             }
             clean::ResolvedPath{ ref did, ref typarams, ref path } => {
                 obj.insert(from_str("kind").unwrap(),
@@ -208,6 +266,7 @@ impl ToJson for RType {
             clean::Bottom => {
                 obj.insert(from_str("kind").unwrap(),
                            String(from_str("Bottom").unwrap()));
+                obj.insert("value".to_string(), String("!".to_string()));
             }
             clean::RawPointer(ref m, box ref t) => {
                 obj.insert(from_str("kind").unwrap(),
@@ -298,6 +357,8 @@ impl ToJson for RFunction {
         let mut obj = TreeMap::new();
         obj.insert(from_str("decl").unwrap(),
                    RFnDecl(fun.decl.clone()).to_json());
+        obj.insert(from_str("generics").unwrap(),
+                   RGenerics(fun.generics.clone()).to_json());
         Object(obj)
     }
 }
@@ -492,15 +553,29 @@ impl ToJson for RTyParam {
 impl ToJson for RTyParamBound {
     fn to_json(&self) -> Json {
         let RTyParamBound(ref typb) = *self;
+        let mut obj = TreeMap::new();
         match *typb {
-            clean::RegionBound => String(from_str("RegionBound").unwrap()),
+            clean::RegionBound(ref l) => {
+                obj.insert("bound_type".to_string(),
+                           String("RegionBound".to_string()));
+                obj.insert("bound".to_string(), String(format!("{}", l)));
+            },
             clean::TraitBound(ref ty) => {
-                RType(ty.clone()).to_json()
+                obj.insert("bound_type".to_string(),
+                           String("TraitBound".to_string()));
+                obj.insert("bound".to_string(), RType(ty.clone()).to_json());
+            },
+            clean::UnboxedFnBound(ref uft) => {
+                obj.insert("bound_type".to_string(),
+                           String("UnboxedFnBound".to_string()));
+                obj.insert("bound".to_string(),
+                           RUnboxedFnType(uft.clone()).to_json());
             }
-        }
-
+        };
+        Object(obj)
     }
 }
+
 
 impl ToJson for RStructType {
     fn to_json(&self) -> Json {
@@ -577,10 +652,29 @@ impl ToJson for RMutability {
 }
 
 
+impl ToJson for RUnboxedFnType {
+    fn to_json(&self) -> Json {
+        let RUnboxedFnType(ref u) = *self;
+        let mut obj = TreeMap::new();
+        obj.insert("path".to_string(), RPath(u.path.clone()).to_json());
+        obj.insert("decl".to_string(), RFnDecl(u.decl.clone()).to_json());
+        Object(obj)
+    }
+}
+
+
 pub fn items_to_json(items: &Vec<clean::Item>) -> Json {
     let mut ret = vec![];
     for it in items.iter() {
-        ret.push(RItem(it.clone()).to_json());
+        let item_json = RItem(it.clone()).to_json();
+        let is_inner_null = match item_json.search(&"inner".to_string()) {
+            Some(ref inner) => inner.is_null(),
+            None => true
+        };
+
+        if !is_inner_null {
+            ret.push(item_json);
+        }
     }
     List(ret)
 }

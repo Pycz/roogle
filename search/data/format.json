@@ -1,0 +1,172 @@
+[<RItem>]
+
+
+RItem = {
+    "name": "foo",
+    "inner": {
+        "kind": "function",
+        "value": {
+            "decl": {
+                "inputs": [{
+                    "type_": <RType>,
+                    "name": <string>
+                }],
+                "output": <RType>
+            },
+            "generics": {
+                "lifetimes": [<string>,...],
+                "type_params": [{
+                    "name": <string>,
+                    "bounds": <string> | <RType> | <RUnboxedFnType>
+                }]
+            }
+        }
+    }
+}
+
+
+<RType> = <TyParamBinder> | <Generic> | <ResolvedPath> | <Self> | <Primitive> | <Closure> | <Proc> | <BareFunction> | <Tuple> | <Vector> | <FixedVector> | <Bottom> | <RawPointer> | <BorrowedRef>
+
+
+<TyParamBinder> = {
+    "kind": "TyParamBinder",
+    "value": <string>
+}
+
+<Generic> = {
+    "kind": "Generic",
+    "value": <string>
+}
+
+<ResolvedPath> = {
+    "kind": "ResolvedPath",
+    "value": {
+        "global": <boolean>,
+        "segments": [{
+            "name": <string>,
+            "lifetimes": [<string>],
+            "types": [<RType>]
+        }, ...]
+    }
+}
+
+<Self> = {
+    "kind": "Self",
+    "value": "Self"
+}
+
+<Primitive> = {
+    "kind": "Primitive",
+    "value": <string>
+}
+
+<Closure> = {
+    "kind": "Closure",
+    "value": {
+        "lifetimes": [<string>],
+        "decl": {
+            "inputs": [{
+                "type_": <RType>,
+                "name": <string>
+            }, ...],
+            "output": <RType>
+        },
+        "bound": [
+            <string> | <RType> | <RUnboxedFnType>
+        ]
+    }
+}
+
+
+<Proc> = {
+    "kind": "Proc",
+    "value": {
+        "lifetimes": [<string>],
+        "decl": {
+            "inputs": [{
+                "type_": <RType>,
+                "name": <string>
+            }, ...],
+            "output": <RType>
+        },
+        "bound": [
+            <string> | <RType> | <RUnboxedFnType>, ...
+        ]
+    }
+}
+
+
+<BareFunction> = {
+    "kind": "BareFunction",
+    "value": {
+        "generics": {
+            "lifetimes": [<string>],
+            "type_params": [{
+                "name": <string>,
+                "bounds": [
+                    <string> | <RType> | <RUnboxedFnType>, ...
+                ]
+            }, ...]
+        }
+    }
+}
+
+
+<Tuple> = {
+    "kind": "Tuple",
+    "value": [<RType>,...]
+}
+
+
+<Vector> = {
+    "kind": "Vector",
+    "value": <RType>
+}
+
+
+<FixedVector> = {
+    "kind": "FixedVector",
+    "size": <string>,
+    "value": <RType>
+}
+
+
+<Bottom> = {
+    "kind": "Bottom"
+}
+
+
+<RawPointer> = {
+    "kind": "RawPointer",
+    "mutability": "Mutable" | "Immutable",
+    "value": <RType>
+}
+
+
+<BorrowedRef> = {
+    "kind": "BorrowedRef",
+    "value": {
+        "mutability": "Mutable" | "Immutable",
+        "type_": <RType>,
+        <"lifetime": <string>>
+    }
+}
+
+
+<RUnboxedFnType> = {
+    "path": {
+        "global": <boolean>,
+        "segments": [{
+            "name": <string>,
+            "lifetimes": [<string>],
+            "types": [<RType>]
+        }, ...]
+    },
+    "decl": {
+        "inputs": [{
+            "type_": <RType>,
+            "name": <string>
+        }, ...],
+        "output": <RType>
+    }
+}

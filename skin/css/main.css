@@ -1,0 +1,264 @@
+* {
+	margin:0;
+	padding:0;
+	outline: none;
+}
+body,html  {
+  width: 100%;
+}
+/*Page MAIN*/
+header  {
+  width: 100%;
+  height: 200px;
+}
+a {
+  text-decoration: none;
+}
+.clear  {
+  clear: both;
+}
+.wrapper  {
+  width: 1024px;
+  margin: 0 auto;
+}
+.logo  {
+  font-family: 'Arial Обычный', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  color: #333333;
+  text-align: left;
+  line-height: 28px;
+  overflow: auto;
+  padding-top: 30px;
+}
+.logo:before  {
+  content: '';
+  background: url('../images/logo_rust.png') no-repeat;
+  width: 28px;
+  height: 28px;
+  display: block;
+  float: left;
+  margin-right: 14px;
+}
+.find_block  {
+  width: 100%;
+  height: 200px;
+}
+.find_block_center  {
+  margin: 0 auto;
+  overflow: auto;
+}
+.find_block_title  {
+  width: 574px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+.find_block_title h1  {
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 56px;
+  color: #333333;
+  line-height: normal;
+}
+.search_block input[type="search"]  {
+  width: 574px;
+  height: 42px;
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  text-decoration: none;
+  color: #000000;
+  text-align: left;
+  margin-right: 10px;
+}
+.search_block input[type="submit"]  {
+  width: 112px;
+  height: 42px;
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: normal;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 6px;
+  background: #428bca;
+  border: 1px solid #797979;
+}
+.search_block input[type="submit"]:hover   {
+  background: #357ebd;
+}
+.example_block  {
+  margin: 50px 0 0 50px;
+}
+.example_text  {
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  color: #428BCA;
+  text-align: left;
+  line-height: normal;
+}
+.example_code  {
+  margin-left: 25px;
+}
+.example_code code  {
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  color: #333333;
+  text-align: left;
+  line-height: 14px;
+}
+/*page1*/
+.logo_page1  {
+  font-family: 'Arial Обычный', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  color: #333333;
+  text-align: left;
+  line-height: 28px;
+  overflow: auto;
+  margin-top: 30px;
+}
+.logo_page1:before  {
+  content: '';
+  background: url('../images/logo_rust.png') no-repeat;
+  width: 28px;
+  height: 28px;
+  display: block;
+  float: left;
+  margin-right: 14px;
+}
+.roogle_title_and_logo  {
+  float: left;
+  margin: 0 20px;
+}
+.roogle_title_and_logo h1  {
+  padding: 25px 0 0 0;
+}
+.roogle_title_and_logo h1 a  {
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 42px;
+  color: #000000;
+  line-height: normal;
+  text-decoration: none;
+}
+.forma_search  {
+  padding: 30px 40px 0 0;
+}
+.forma_search  input[type="submit"]  {
+  width: 112px;
+  height: 42px;
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #797979;
+}
+.forma_search  input[type="submit"]:hover  {
+  background: #f2f2f2;
+}
+.forma_search  input[type="search"]  {
+  width: 364px;
+  height: 42px;
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  text-decoration: none;
+  color: #000000;
+  text-align: left;
+  margin-right: 10px;
+}
+.what_search  {
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  color: #000000;
+  line-height: normal;
+  margin: 30px 0 0 20px;
+}
+.result_search_spisok  {
+  margin-top: 35px;
+}
+.result_search_item  {
+  margin-bottom: 25px;
+}
+.what_we_search,.what_we_search span  {
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  color: #666666;
+  line-height: normal;
+  text-indent: 3px;
+}
+.what_we_search a  {
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  color: #428BCA;
+}
+.result_razdel  {
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  color: #666666;
+  line-height: normal;
+  padding: 10px 0;
+}
+.result_anons  {
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  color: #999999;
+  line-height: normal;
+}
+.plus  {
+  background: url('../images/plus_butt.png') no-repeat;
+  width: 24px;
+  height: 24px;
+  background-size: 20px;
+  display: block;
+  float: left;
+  opacity: 0.6;
+  margin-right: 6px;
+  cursor: pointer;
+}
+.minus  {
+  background: url('../images/minus_butt.png') no-repeat;
+  width: 24px;
+  height: 24px;
+  background-size: 20px;
+  display: block;
+  float: left;
+  opacity: 0.6;
+  margin-right: 6px;
+  cursor: pointer;
+}
+.result_anons_hidden  {
+  font-family: 'Open Sans Regular', 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  color: #999999;
+  line-height: normal;
+}

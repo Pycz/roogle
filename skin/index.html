@@ -1,0 +1,47 @@
+<!DOCTYPE>
+<html ng-app="app">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<meta name="format-detection" content="telephone=no">
+<title>Roogle</title>
+<link rel="stylesheet" href="css/main.css">
+<script src="js/angular.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/services.js"></script>
+<script src="js/ang-fnd.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+  <div class="roogle_title_and_logo">
+    <h1><a href="#">Roogle</a></h1>
+    <a href="#">
+      <div class="logo_page1">
+        <a href="http://rust-lang.org/" target="_blank">rust-lang.org</a>
+      </div>
+    </a>
+  </div>
+  <div class="forma_search">
+    <form>
+      <input type="search">
+      <input type="submit" value="search">
+    </form>
+    <div class="what_search">
+      map
+    </div>
+  </div>
+
+  <div class="result_search_block">
+    <div class="wrapper">
+      <div class="find_block_center">
+        <div class="result_search_spisok" ng-repeat="item in results">
+          <search-item item="item"></search-item>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
