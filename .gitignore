@@ -1,2 +1,9 @@
 /search/data/target
 /search/data/Cargo.lock
+.metadata
+/Analyze/bin/dev/*.class
+*.class
+/.recommenders
+.settings
+/Analyze/.classpath
+/Analyze/.project
