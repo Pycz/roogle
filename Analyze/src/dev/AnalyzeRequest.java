@@ -232,7 +232,7 @@ public class AnalyzeRequest {
 	
 	public static void main (String [] args) {
 		
-		String request = /*args[0];*/ mRequest; 	
+		String request = args[0]; /*mRequest;*/ 	
 		//System.out.println("request: " + request);		
 		
 		JSONObject obj = analyze(request);
