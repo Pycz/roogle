@@ -19,6 +19,7 @@ require_once "php_exec.php";
 </head>
 
 <body ng-controller="MainCtrl">
+
   <div class="roogle_title_and_logo">
     <h1><a href="#">Roogle</a></h1>
     <a href="#">
@@ -27,13 +28,14 @@ require_once "php_exec.php";
       </div>
     </a>
   </div>
+
   <div class="forma_search">
     <form>
-      <input ng-model="search" type="search">
+      <input ng-model="search" type="search" ng-click="clearResult()">
       <input ng-href="#" ng-click="getResults()" type="submit" value="search">
     </form>
     <div class="what_search">
-      {{ search }} </br>
+      {{ search }} {{ results.error }} </br>
     </div>
   </div>
 
@@ -46,5 +48,6 @@ require_once "php_exec.php";
       </div>
     </div>
   </div>
+
 </body>
 </html>

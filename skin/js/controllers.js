@@ -240,6 +240,10 @@ ctrls.controller('MainCtrl', function($scope, $http) {
             });
     };
 
+    $scope.clearResult = function(){
+        $scope.results = [];
+    };
+
     $scope.hideElem = function(id, hide){ // hide - true -> hide it! false -> show it!
 
         for(var i = 0; i < $scope.search_items.length; i++){

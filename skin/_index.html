@@ -11,6 +11,7 @@ require_once "php_exec.php";
 <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+
   <header>
   	<div class="wrapper">
   		<a href="#">
@@ -20,36 +21,42 @@ require_once "php_exec.php";
   		</a>
   	</div>
   </header>
+
   <div class="find_block">
+
   	<div class="wrapper">
   	  <div class="find_block_center">
-  		<div class="find_block_title">
-  		  <h1>Roogle</h1>
-  		</div>
-  		<div class="search_block">
-  		  <form>
-  			<input type="search">
-  			<input type="submit" value="search">
-  		  </form>
-  		</div>
-  		<div class="example_block">
-  			<div class="example_text">
-  				Example searches
-  			</div>
-  			<div class="example_code">
-  				<pre>
-  					<code>
-map
 
-(a->b)->[a]->[b]
+    		<div class="find_block_title">
+    		  <h1>Roogle</h1>
+    		</div>
 
-Ord a => [a]->[b]
+    		<div class="search_block">
+    		  <form>
+    			<input type="search">
+    			<input type="submit" value="search">
+    		  </form>
+    		</div>
 
-Data.Map.insert
-  					</code>
-  				</pre>
-  			</div>
-  		</div>
+    		<div class="example_block">
+    			<div class="example_text">
+    				Example searches
+    			</div>
+    			<div class="example_code">
+    				<pre>
+    					<code>
+                  map
+
+                  (a->b)->[a]->[b]
+
+                  Ord a => [a]->[b]
+
+                  Data.Map.insert
+    					</code>
+    				</pre>
+    			</div>
+    		</div>
+
   	  </div>
   	</div>
   </div>
