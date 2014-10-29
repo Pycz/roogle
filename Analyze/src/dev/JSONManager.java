@@ -1,5 +1,6 @@
 package dev;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
@@ -49,8 +50,17 @@ public class JSONManager {
 			
 			requestJson.put("signature", signatureArray);
 		}
-		if (!AnalyzeRequest.output().equals("")) {	
-			requestJson.put("output", AnalyzeRequest.output());
+		if ( !AnalyzeRequest.output.isEmpty() ) {	
+			JSONObject outputObj = new JSONObject();
+			outputObj.put("name", AnalyzeRequest.output.getTypeName());
+			
+			JSONArray outArray = new JSONArray();
+			if (!AnalyzeRequest.output.getTypeListString().isEmpty()) {
+				outArray.addAll(AnalyzeRequest.output.getTypeListString());
+				outputObj.put("types", outArray);
+			}
+			
+			requestJson.put("output", outputObj);
 		}
 		
 		return requestJson;

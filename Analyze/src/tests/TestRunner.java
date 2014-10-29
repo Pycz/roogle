@@ -127,5 +127,11 @@ public class TestRunner {
          System.out.println(failure.toString());
       }
       System.out.println("Test NameTest:" + result.wasSuccessful());
+       
+      result = JUnitCore.runClasses(TypesTest.class);
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }
+      System.out.println("Test TypesTest:" + result.wasSuccessful());
    }
 }
