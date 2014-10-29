@@ -5,7 +5,7 @@ var ctrls = angular.module('app.controllers', [
 ]);
 
 ctrls.controller('MainCtrl', function($scope, $http) {
-
+    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $scope.search_items = [
         {
             id: 1,
@@ -230,10 +230,18 @@ ctrls.controller('MainCtrl', function($scope, $http) {
         }
     ];
 
+    $scope.getResults = function(){
+        return $http.post('/php_exec.php', {
+                "search": $scope.search,
+            })
+            .then(function(res){
+                $scope.results = res.data;
+                return res.data;
+            });
+    };
 
     $scope.hideElem = function(id, hide){ // hide - true -> hide it! false -> show it!
-        //debugger;
-        console.log($scope.search_items[0].is_hidden);
+
         for(var i = 0; i < $scope.search_items.length; i++){
             if($scope.search_items[i].id == id){
                 if(hide){
@@ -245,7 +253,6 @@ ctrls.controller('MainCtrl', function($scope, $http) {
                 break;
             }
         }
-        console.log($scope.search_items[0].is_hidden);
     };
 });
 }(angular));

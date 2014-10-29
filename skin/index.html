@@ -29,11 +29,11 @@ require_once "php_exec.php";
   </div>
   <div class="forma_search">
     <form>
-      <input type="search">
-      <input type="submit" value="search">
+      <input ng-model="search" type="search">
+      <input ng-href="#" ng-click="getResults()" type="submit" value="search">
     </form>
     <div class="what_search">
-      map
+      {{ search }} </br>
     </div>
   </div>
 
