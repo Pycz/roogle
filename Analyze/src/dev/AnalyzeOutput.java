@@ -3,10 +3,12 @@ package dev;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import dev.AnalyzeType.Type;
+
 public class AnalyzeOutput {
 
 	private static String arrow = "[ \t]*-[ \t]*>[ \t]*";
-	private static String lowerCaseTypeName = "[a-z0-9_]+";
+	//private static String lowerCaseTypeName = "[a-z0-9_]+";
 	private static String upperCaseTypeName = "([A-Z][a-z0-9_]+)+";
 	
 	private static String extract (String str, int pos) {
@@ -26,7 +28,7 @@ public class AnalyzeOutput {
 		}
 	}
 	
-	public static String parseOutput (String output) {
+	public static Type parseOutput (String output) {
 		
 		/* сначала выкинуть стрелочку */
 		Pattern pattern = Pattern.compile(arrow);
@@ -36,17 +38,14 @@ public class AnalyzeOutput {
 			output = extract(output, matcher.end());
 		}
 
-		int pos = check(output, lowerCaseTypeName);
-		if ( pos > 0 ) {
-			return output.substring(0, pos);
-		}
-		else {
-			pos = check(output, upperCaseTypeName);
-			if ( pos > 0 ) {
-				return output.substring(0, pos);
-			}
-		}
+		Type type = new Type();
+		type = AnalyzeType.parseType(output, type);
 		
-		return "";
+//		int pos = check(output, upperCaseTypeName);
+//		if ( pos > 0 ) {
+//			return output.substring(0, pos);
+//		}
+		
+		return type;
 	}
 }

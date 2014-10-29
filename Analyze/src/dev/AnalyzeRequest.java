@@ -6,14 +6,16 @@ import java.util.regex.Pattern;
 
 import org.json.simple.JSONObject;
 
+import dev.AnalyzeType.Type;
+
 public class AnalyzeRequest {
 
-	private static String mRequest = "map(a:Type)->tYpe"; //"map (a: Type1, b: Type2) <'a, T: G1 + G2> -> String ";
+	private static String mRequest = "map (a: Type1, b: Type2) <'a, T: G1 + G2> -> String<Type1, Type2>";
 	private static String name = "";
 	public static LinkedList<LinkedList> genericList = new LinkedList<LinkedList>();
 	public static LinkedList lifetimesList = new LinkedList();
 	public static LinkedList signatureList = new LinkedList();
-	private static String output = "";
+	public static Type output = new Type();
 	
 	/**
 	 * clean globals for tests
@@ -23,7 +25,7 @@ public class AnalyzeRequest {
 		genericList = new LinkedList<LinkedList>();
 		lifetimesList = new LinkedList();
 		signatureList = new LinkedList();
-		output = "";
+		output = new Type();
 	}
 	
 	/**
@@ -81,9 +83,9 @@ public class AnalyzeRequest {
 		}
 		case 3:
 		{
-			if ( output.equals("")) {
+			if ( output.isEmpty()) {
 				output = AnalyzeOutput.parseOutput(request.substring(0, pos));
-				if (!output.equals("")) {
+				if (!output.isEmpty()) {
 					return true;
 				}
 				return false;
@@ -161,7 +163,7 @@ public class AnalyzeRequest {
 	 * 
 	 * @return output type
 	 */
-	public static String output() {
+	public static Type output() {
 		return output;
 	}
 	
@@ -204,7 +206,7 @@ public class AnalyzeRequest {
 			
 			if ( type == dev.PrimaryRegexp.type.OUTPUT ) {
 				
-				Pattern pattern = Pattern.compile("[ \t]*-[ \t]*>[ \t]*[a-zA-Z0-9_]+");
+				Pattern pattern = Pattern.compile("[ \t]*-[ \t]*>[ \t]*([a-zA-Z0-9_]+)(<.*>)?");
 				Matcher matcher = pattern.matcher(request);
 				if (matcher.find())
 				{
@@ -230,7 +232,7 @@ public class AnalyzeRequest {
 	
 	public static void main (String [] args) {
 		
-		String request = /*args[0];*/ mRequest; 	
+		String request = args[0]; /*mRequest;*/
 		//System.out.println("request: " + request);		
 		
 		JSONObject obj = analyze(request);
