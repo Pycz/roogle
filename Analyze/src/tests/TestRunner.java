@@ -132,6 +132,6 @@ public class TestRunner {
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
       }
-      System.out.println("UTest TypesTest:" + result.wasSuccessful());
+      System.out.println("Test TypesTest:" + result.wasSuccessful());
    }
 }
