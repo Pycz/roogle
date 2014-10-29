@@ -8,7 +8,9 @@ public class AnalyzeType {
 	
  	private static String typeNameRegex = "([A-Z][a-z0-9_]*)+[ \t]*";
 	private static String unit = "[ \t]*[(].*[)][ \t]*";
-	private static String typeRegex = "([A-Z][a-z0-9_]*)+[ \t]*(<.*>)?"; 
+	private static String typeRegex = "([A-Z][a-z0-9_]+)+[ \t]*(<.*>)?"; 
+	
+	private static boolean typeExpected;
 		
 	private static int saveTypeName(String str, Type type) {
 		Pattern pattern = Pattern.compile(typeNameRegex);
@@ -22,6 +24,8 @@ public class AnalyzeType {
 	
 	private static boolean saveTypeArr(String str, Type type) {
 		
+		typeExpected = true;
+		
 		/* remove < */
 		str = str.substring(str.indexOf('<') + 1);
 		
@@ -33,25 +37,34 @@ public class AnalyzeType {
 		ArrayList<Type> list = new ArrayList<Type>();
 		
 		while (!str.equals(">")) {
+			
 			if (nameMatcher.find(0)) {
 				if (nameMatcher.end() <= str.length()) {
 					list.add(new Type(str.substring(0, nameMatcher.end())));
 					str = str.substring(nameMatcher.end());
+					typeExpected = false;
 				}				
 			} 
 //			else if (unitMatcher.find()) {
 //				list.add(new Type(str.substring(0, nameMatcher.end())));
 //				str = str.substring(unitMatcher.end());
+//				typeExpected = true;
 //				
 //			} 
 			else {
 				return false;
 			}
-			str = str.substring(str.indexOf(',') + 1);
-			while(str.indexOf(' ') == 0) {
-				str = str.substring(str.indexOf(' ') + 1);
+			if (str.indexOf(',') != -1) {
+				str = str.substring(str.indexOf(',') + 1);
+				while(str.indexOf(' ') == 0) {
+					str = str.substring(str.indexOf(' ') + 1);
+				}
+				typeExpected = true;
 			}
 		}
+		
+		if (typeExpected)
+			return false;
 		
 		type.setTypeList(list);
 		return true;
