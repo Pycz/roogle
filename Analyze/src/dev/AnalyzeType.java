@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 
 public class AnalyzeType {
 	
- 	private static String typeNameRegex = "([A-Z][a-z0-9_]+)+[ \t]*";
+ 	private static String typeNameRegex = "([A-Z][a-z0-9_]*)+[ \t]*";
 	private static String unit = "[ \t]*[(].*[)][ \t]*";
-	private static String typeRegex = "([A-Z][a-z0-9_]+)+[ \t]*(<.*>)?"; 
+	private static String typeRegex = "([A-Z][a-z0-9_]*)+[ \t]*(<.*>)?"; 
 		
 	private static int saveTypeName(String str, Type type) {
 		Pattern pattern = Pattern.compile(typeNameRegex);

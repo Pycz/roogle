@@ -10,7 +10,7 @@ import dev.AnalyzeType.Type;
 
 public class AnalyzeRequest {
 
-	private static String mRequest = "map (a: Type1, b: Type2) <'a, T: G1 + G2> -> String<Type1, Type2>";
+	private static String mRequest = "-> Type<T>";//"map (a: Type1, b: Type2) <'a, T: G1 + G2> -> String<Type1, Type2>";
 	private static String name = "";
 	public static LinkedList<LinkedList> genericList = new LinkedList<LinkedList>();
 	public static LinkedList lifetimesList = new LinkedList();
@@ -232,7 +232,7 @@ public class AnalyzeRequest {
 	
 	public static void main (String [] args) {
 		
-		String request = args[0]; /*mRequest;*/ 	
+		String request = /*args[0];*/ mRequest;
 		//System.out.println("request: " + request);		
 		
 		JSONObject obj = analyze(request);
